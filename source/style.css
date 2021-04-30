@@ -1,0 +1,270 @@
+body{
+    background:#262625;
+    color: white;
+    text-align: center;
+    min-height: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrapper{
+    width: 500px;
+}
+
+.hidden{
+    display: none;
+}
+
+.titleHeader{
+    font-size: x-large;
+    text-align: center;
+    width: 99%;
+    margin-bottom: 10px;
+}
+
+.allowLineBreaks{
+    white-space: pre-line;
+}
+
+.checkboxLabel{
+    display: contents;
+}
+
+.baseButton{
+    border: none;
+    background: #c53131;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.baseButton:hover{
+    background: #731d1d;
+    transition: background 0.1s;
+}
+
+.campaignButton{
+    width: 200px;
+    height: 20px;
+}
+
+.addButton{
+    width: 50px;
+    right: 80px;
+    height: 20px;
+    position: absolute;
+}
+
+.deleteButton{
+    width: 65px;
+    right: 10px;
+    height: 20px;
+    position: absolute;
+}
+
+.tabBar{
+    background: #c53131;
+}
+
+.tabButton{
+    background: #c53131;
+    width: 15%;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.tabButton:hover{
+    background: #731d1d;
+    transition: background 0.1s;
+}
+
+.tabButton.selected{
+    background: #731d1d;
+    cursor: default;
+    outline: none;
+}
+
+.viewAllButton{
+    width: 65px;
+    height: 20px;
+    position: absolute;
+    right: 135px;
+}
+
+.inputBox{
+    background: #262625;
+    color: white;
+    border: #262625 1px solid;
+    cursor: cell;
+}
+
+.inputBox:hover{
+    border: white 1px solid;
+    transition: border 0.1s;
+}
+
+.inputBox::placeholder{
+    color: #b1b1b1;
+}
+
+.inputBox.title{
+    width: 95%;
+}
+
+.journalSearch{
+    text-align: left;
+}
+
+.searchBox{
+    width: 58%;
+}
+
+.objectiveBox{
+    width: 75%;
+}
+
+.card{
+    text-align: left;
+}
+
+.title{
+    font-size: x-large;
+}
+
+.notes{
+    min-width: 480px;
+    min-height: 100px;
+}
+
+.notes.summary{
+    min-height: 200px;
+}
+
+.popupBackground{
+    background: rgba(0, 0, 0, 0.315);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.createPopupInput{
+    width: 90%;
+}
+
+.popupContent{
+    background: white;
+    color: black;
+    border-radius: 10px;
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    width: 80%;
+    height: 75%;
+}
+
+.popupBackground .popupContent{
+    animation: popupAnimation 0.1s;
+}
+
+.popupTitle{
+    font-size: x-large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #c53131;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.closeButton{
+    color: white;
+    background: #c53131;
+    border-radius: 10px;
+    border: 1px white solid;
+    position: absolute;
+    right: 5px;
+    top: 14px;
+    cursor: pointer;
+}
+
+.closeButton:hover{
+    background: #731d1d;
+    color: white;
+    transition: background 0.1s, color 0.1s;
+}
+
+.importExportBox{
+    background: white;
+    color: black;
+    min-width: 400px;
+    min-height: 100px;
+}
+
+.card a{
+    color: aqua;
+}
+
+.searchContainer{
+    overflow: auto;
+    max-height: 165px;
+    max-width: 400px;
+}
+
+.searchWrapper{
+    background: white;
+    color: black;
+    cursor: pointer;
+    text-align: left;
+}
+
+.searchWrapper:hover{
+    background: gray;
+    color: white;
+    transition: background 0.1s, color 0.1s;
+}
+
+.popupSearch{
+    background: white;
+    width: 80%;
+    position: absolute;
+    top: 103px;
+    left: 9px;
+    color: black;
+}
+
+.paypalButtonWrapper{
+    display: contents;
+}
+
+.paypalButton{
+    position: absolute;
+    bottom: 5px;
+}
+
+@keyframes popupAnimation{
+    0%{
+        transform: translateY(25px);
+    }
+
+    20%{
+        transform: translateY(20px);
+    }
+
+    40%{
+        transform: translateY(15px);
+    }
+
+    60%{
+        transform: translateY(10px);
+    }
+
+    80%{
+        transform: translateY(5px);
+    }
+
+    100%{
+        transform: translateY(0px);
+    }
+}

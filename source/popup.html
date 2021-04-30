@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="titleScreen">                
+                <div id="titleNoCampaigns" class="hidden">
+                    <div id="titleHeader" class="titleHeader">Tabletop Adventure Journal</div>
+                    <div id="titleGetStarted" class="allowLineBreaks">
+                        You don't have any campaigns.<br><br>
+                        Create, or import, one to get started.<br><br>
+                    </div>
+                    <button id="btnCreateCampaign" class="baseButton campaignButton" type="button">Create Campaign</button>
+                    <button id="btnImportCampaign" class="baseButton campaignButton" type="button">Import Campaign</button>
+                </div>
+            </div>
+
+            <div id="journal" class="hidden">
+                <input id="txtHeader" class="inputBox titleHeader" type="text" placeholder="Campaign Name"></input>
+                <br>
+
+                <div id="journalTabs" class="tabBar">
+                    <button id="tabSummary" class="tabButton selected" type="button">Summary</button>
+                    <button id="tabQuest" class="tabButton" type="button">Quests</button>
+                    <button id="tabCharacters" class="tabButton" type="button">Characters</button>
+                    <button id="tabSessions" class="tabButton" type="button">Sessions</button>
+                    <button id="tabCampaigns" class="tabButton" type="button">Campaigns</button>
+                    <button id="tabAbout" class="tabButton" type="button">About</button>
+                </div>
+                <br>
+
+                <div id="journalSearch" class="journalSearch hidden">
+                    <input id="txtSearch" type="text" placeholder="Search" class="searchBox"></input>
+                    <button id="btnViewAll" class="baseButton viewAllButton" type="button">View All</button>
+                    <button id="btnAddNew" class="baseButton addButton" type="button">New</button>
+                    <button id="btnDelete" class="baseButton deleteButton" type="button">Delete</button>
+                    <br><br>
+                </div>
+
+                <div id="journalSummary" class="card hidden">
+                    <textarea id="txtSummaryNotes" placeholder="Summary" class="inputBox notes summary"></textarea>
+                </div>
+
+                <div id="journalQuest" class="card hidden">
+                    <input id="txtQuestName" type="text" placeholder="Quest Name" class="inputBox title"></input><br>
+                    <input id="chkQuestComplete" type="checkbox"></input><div id="txtQuestComplete" class="checkboxLabel">Complete</div><br>
+                    <input id="txtQuestObjective" type="text" placeholder="Objective" class="inputBox objectiveBox"></input><br>
+                    <textarea id="txtQuestNotes" placeholder="Quest Notes" class="inputBox notes"></textarea>
+                </div>
+
+                <div id="journalCharacter" class="card hidden">
+                    <input id="txtCharacterName" type="text" placeholder="Character Name" class="inputBox title"></input><br><br>
+
+                    <input id="txtCharacterLocation" type="text" placeholder="Last Known Location" class="inputBox"></input>
+                    <input id="txtCharacterJob" type="text" placeholder="Job" class="inputBox"></input><br>
+                    <input id="chkCharacterParty" type="checkbox"></input><div id="txtCharacterParty" class="checkboxLabel">Party Member</div>
+                    <input id="chkCharacterDead" type="checkbox"></input><div id="txtCharacterDead" class="checkboxLabel">Deceased</div><br>
+
+                    <textarea id="txtCharacterNotes" placeholder="Character Notes" class="inputBox notes"></textarea>
+                </div>
+
+                <div id="journalSession" class="card hidden">
+                    <input id="txtSessionName" type="text" placeholder="Session Name" class="inputBox title"></input><br><br>
+                    <textarea id="txtSessionNotes" placeholder="Session Notes" class="inputBox notes"></textarea>
+                </div>
+
+                <div id="journalCampaigns" class="card hidden">
+                    <div id="campaignInfo" class="allowLineBreaks">
+                        You can import data from another campaign, or export data to share with others.
+                    </div>
+                    <br>
+                    <button id="btnCampaignsImport" class="baseButton campaignButton" type="button">Import Campaign</button>
+                    <button id="btnCampaignsExport" class="baseButton campaignButton" type="button">Export Campaign</button>
+                </div>
+
+                <div id="journalAbout" class="card hidden">
+                    <button id="btnViewSearchQueries" class="baseButton campaignButton" type="button">About Search Queries</button><br><br>
+                    Tabletop Adventure Journal &copy; 2021 Dan Donnan.<br><br>
+                    Tabletop Adventure Journal was developed to help organise D&D notes in an easier to
+                    maintain structure than a monolithic Google Doc.<br><br>
+                    <b>What's New?</b><br>
+                    - Changes to how data is stored in order to reduce file size<br>
+                    - Quest and Character searches can be filtered using queries<br>
+                    - Popup boxes have titles<br>
+                    - Delete button has moved, with confirmation message for Campaign and Session delete<br>
+                    - Imports and Exports can now be restricted to Campaigns, Quests, Characters or Sessions<br>
+                    <br><br>
+                    If you have any suggestions, fire them over to <a href="https://www.twitter.com/dandonnan" target="_blank">@dandonnan</a><br>
+                    If you are inclined to throw money at things that have helped you out, you can
+                    <form action="https://www.paypal.com/donate" method="post" target="_blank" class="paypalButtonWrapper">
+                        <input type="hidden" name="business" value="6DB84VS8LAPW4" />
+                        <input type="hidden" name="currency_code" value="GBP" />
+                        <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit"
+                                title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" class="paypalButton" />
+                        <img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1" />
+                    </form>
+                </div>
+
+            </div>
+
+            <div id="popupSearch" class="popupSearch">
+                <div id="searchContainer" class="searchContainer hidden"></div>
+                <div id="searchMoreCharacters" class="hidden">Please enter more characters to refine the search.</div>
+                <div id="searchNoResults" class="hidden">No results were found.</div>
+            </div>
+
+            <div id="popupNew" class="popupBackground hidden">
+                <div id="popupNewContent" class="popupContent">
+                    <div id="popupNewTitle" class="popupTitle"></div>
+                    <button id="btnPopupNewClose" class="closeButton" type="button">X</button>
+                    <br>
+                    <input id="txtPopupNew" type="text" class="createPopupInput"></input><br><br>
+                    <button id="btnPopupNewCancel" class="baseButton campaignButton" type="button">Cancel</button>
+                    <button id="btnPopupNewCreate" class="baseButton campaignButton" type="button">Create</button>
+                    <br>
+                </div>
+            </div>
+
+            <div id="popupImport" class="popupBackground hidden">
+                <div id="popupImportContent" class="popupContent">
+                    <div id="popupImportTitle" class="popupTitle">Import</div>
+                    <button id="btnPopupImportClose" class="closeButton" type="button">X</button>
+                    <br><br>
+                    <textarea id="txtImportData" class="importExportBox"></textarea>
+                    <br>
+                    <button id="btnImportAsJson" class="baseButton campaignButton" type="button">Import from JSON</button>
+                    <br>
+                    <div id="importMessage"></div>
+                </div>
+            </div>
+
+            <div id="popupExport" class="popupBackground hidden">
+                <div id="popupExportContent" class="popupContent">
+                    <div id="popupExportTitle" class="popupTitle">Export</div>
+                    <button id="btnPopupExportClose" class="closeButton" type="button">X</button>
+                    <input id="rdoExportAll" type="radio" name="exportCampaign" checked="checked"></input><div id="txtExportAllCampaigns" class="checkboxLabel">All Campaigns</div>
+                    <input id="rdoExportThis" type="radio" name="exportCampaign"></input><div id="txtExportThis" class="checkboxLabel">This Campaign</div>
+                    <br>
+
+                    <div id="exportOptions">
+                        <input id="chkExportAll" type="checkbox" checked="checked"></input><div id="txtExportAll" class="checkboxLabel">All</div>
+                        <input id="chkExportQuests" type="checkbox"></input><div id="txtExportQuests" class="checkboxLabel">Quests</div>
+                        <input id="chkExportCharacters" type="checkbox"></input><div id="txtExportCharacters" class="checkboxLabel">Characters</div>
+                        <input id="chkExportSessions" type="checkbox"></input><div id="txtExportSessions" class="checkboxLabel">Sessions</div>
+                    </div>
+
+                    <button id="btnExportAsJson" class="baseButton campaignButton" type="button">Export as JSON</button>
+                    <button id="btnExportAsText" class="baseButton campaignButton" type="button">Export as Text</button>
+                    <br><br>
+                    <textarea id="txtExportData" class="importExportBox hidden"></textarea>
+                </div>
+            </div>
+
+            <div id="popupViewAll" class="popupBackground hidden">
+                <div id="popupAllContent" class="popupContent">
+                    <div id="popupViewAllTitle" class="popupTitle"></div>
+                    <button id="btnPopupViewAllClose" class="closeButton" type="button">X</button>
+                    <br>
+                    <div id="viewAllContainer" class="searchContainer"></div>
+                </div>
+            </div>
+
+            <div id="popupConfirmDelete" class="popupBackground hidden">
+                <div id="popupDeleteContent" class="popupContent">
+                    <div id="popupDeleteTitle" class="popupTitle"></div>
+                    <button id="btnPopupDeleteClose" class="closeButton" type="button">X</button>
+                    <br>
+                    <div id="popupDeleteMessage" class="allowLineBreaks"></div><br>
+                    <button id="btnPopupDeleteCancel" class="baseButton campaignButton" type="button">Cancel</button>
+                    <button id="btnPopupDeleteConfirm" class="baseButton campaignButton" type="button">Delete</button>
+                </div>
+            </div>
+
+            <div id="popupSearchQueryGuide" class="popupBackground hidden">
+                <div class="popupContent">
+                    <div class="popupTitle">Search Queries</div>
+                    <button id="btnPopupSearchQueryClose" class="closeButton" type="button">X</button>
+                    <br>
+                    It is possible to filter searches by adding queries to the end of the search.<br><br>
+
+                    <b>Quests</b><br>
+                    &complete&nbsp;&nbsp; - Filter by completed quests<br>
+                    &incomplete&nbsp;&nbsp; - Filter by incomplete quests<br><br>
+
+                    <b>Characters</b><br>
+                    &party&nbsp;&nbsp; - Filter by characters in the party<br>
+                    &nonparty&nbsp;&nbsp; - Filter by characters not in the party<br>
+                    &dead&nbsp;&nbsp; - Filter by characters that are dead<br>
+                    &alive&nbsp;&nbsp; - Filter by characters that are alive
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/localisation.js"></script>
+        <script src="/js/ui.js"></script>
+        <script src="/js/quests.js"></script>
+        <script src="/js/characters.js"></script>
+        <script src="/js/sessions.js"></script>
+        <script src="/js/campaigns.js"></script>
+        <script src="/js/import.js"></script>
+        <script src="/js/export.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

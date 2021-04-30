@@ -1,0 +1,207 @@
+{
+    "APP_NAME": {
+        "message": "Tabletop Adventure Journal"
+    },
+    "APP_DESC":{
+        "message": "A Journal for Tabletop adventure games."
+    },
+    "TAB_SUMMARY":{
+        "message": "Summary"
+    },
+    "TAB_QUESTS": {
+        "message": "Quests"
+    },
+    "TAB_CHARACTERS": {
+        "message": "Characters"
+    },
+    "TAB_SESSIONS": {
+        "message": "Sessions"
+    },
+    "TAB_CAMPAIGNS": {
+        "message": "Campaigns"
+    },
+    "TAB_ABOUT": {
+        "message": "About"
+    },
+    "BUTTON_VIEW_ALL": {
+        "message": "View All"
+    },
+    "BUTTON_NEW": {
+        "message": "New"
+    },
+    "BUTTON_DELETE": {
+        "message": "Delete"
+    },
+    "TITLE_IMPORT": {
+        "message": "Import"
+    },
+    "IMPORT_FROM_JSON": {
+        "message": "Import from JSON"
+    },
+    "TITLE_EXPORT": {
+        "message": "Export"
+    },
+    "EXPORT_AS_JSON": {
+        "message": "Export as JSON"
+    },
+    "EXPORT_AS_TEXT": {
+        "message": "Export as Text"
+    },
+    "EXPORT_ALL_CAMPAIGNS": {
+        "message": "All Campaigns"
+    },
+    "EXPORT_THIS_CAMPAIGN": {
+        "message": "This Campaign"
+    },
+    "EXPORT_EVERYTHING": {
+        "message": "Everything"
+    },
+    "IMPORT_EMPTY": {
+        "message": "Please enter import data into the box above."
+    },
+    "IMPORT_INVALID": {
+        "message": "Could not parse the data. Please make sure it is in the JSON format and try again."
+    },
+    "IMPORT_QUEST_NO_CAMPAIGN":{
+        "message": "Cannot import Quests as no Campaign currently exists."
+    },
+    "IMPORT_CHARACTER_NO_CAMPAIGN":{
+        "message": "Cannot import Characters as no Campaign currently exists."
+    },
+    "IMPORT_SESSION_NO_CAMPAIGN":{
+        "message": "Cannot import Sessions as no Campaign currently exists."
+    },
+    "IMPORT_CAMPAIGN_NO_NAME": {
+        "message": "One or more Campaigns does not have a name and has not been imported."
+    },
+    "IMPORT_QUEST_NO_NAME": {
+        "message": "One or more Quests does not have a name and has not been imported."
+    },
+    "IMPORT_CHARACTER_NO_NAME": {
+        "message": "One or more Characters does not have a name and has not been imported."
+    },
+    "IMPORT_SESSION_NO_NAME": {
+        "message": "One or more Sessions does not have a name and has not been imported."
+    },
+    "SEARCH": {
+        "message": "Search"
+    },
+    "SEARCH_REFINE": {
+        "message": "Please enter more characters to refine the search."
+    },
+    "SEARCH_NO_RESULTS": {
+        "message": "No results were found."
+    },
+    "BUTTON_CANCEL": {
+        "message": "Cancel"
+    },
+    "BUTTON_CREATE": {
+        "message": "Create"
+    },
+    "QUEST_NAME": {
+        "message": "Quest Name"
+    },
+    "QUEST_OBJECTIVE": {
+        "message": "Objective"
+    },
+    "QUEST_NOTES": {
+        "message": "Quest Notes"
+    },
+    "QUEST_CREATE": {
+        "message": "Create Quest"
+    },
+    "QUEST_ENTER_NAME": {
+        "message": "Enter Quest Name"
+    },
+    "QUEST_COMPLETE": {
+        "message": "Complete"
+    },
+    "QUEST_NONE": {
+        "message": "You haven't set up any Quests."
+    },
+    "CHARACTER_NAME": {
+        "message": "Character Name"
+    },
+    "CHARACTER_ENTER_NAME": {
+        "message": "Enter Character Name"
+    },
+    "CHARACTER_LOCATION": {
+        "message": "Last Known Location"
+    },
+    "CHARACTER_JOB": {
+        "message": "Job"
+    },
+    "CHARACTER_PARTY_MEMBER": {
+        "message": "Party Member"
+    },
+    "CHARACTER_DECEASED": {
+        "message": "Deceased"
+    },
+    "CHARACTER_NOTES": {
+        "message": "Character Notes"
+    },
+    "CHARACTER_CREATE": {
+        "message": "Create Character"
+    },
+    "CHARACTER_NONE": {
+        "message": "You haven't set up any Characters."
+    },
+    "SESSION_NAME": {
+        "message": "Session Name"
+    },
+    "SESSION_ENTER_NAME": {
+        "message": "Enter Session Name"
+    },
+    "SESSION_NOTES": {
+        "message": "Session Notes"
+    },
+    "SESSION_CREATE": {
+        "message": "Create Session"
+    },
+    "SESSION_DELETE": {
+        "message": "Delete Session"
+    },
+    "SESSION_DELETE_CONFIRM": {
+        "message": "Are you sure you want to delete '$SESSION_NAME$'?",
+        "placeholders": {
+            "session_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "SESSION_NONE": {
+        "message": "You haven't set up any Sessions."
+    },
+    "CAMPAIGN_IMPORT_EXPORT_INFO": {
+        "message": "You can import data from another Campaign, or export data to share with others.\n\nIt is recommended that you backup your data on a regular basis, in case of any unexpected data loss that may occur during browser updates."
+    },
+    "CAMPAIGN_NAME": {
+        "message": "Campaign Name"
+    },
+    "CAMPAIGN_ENTER_NAME": {
+        "message": "Enter Campaign Name"
+    },
+    "CAMPAIGN_CREATE": {
+        "message": "Create Campaign"
+    },
+    "CAMPAIGN_IMPORT": {
+        "message": "Import Campaign"
+    },
+    "CAMPAIGN_EXPORT": {
+        "message": "Export Campaign"
+    },
+    "CAMPAIGN_DELETE": {
+        "message": "Delete Campaign"
+    },
+    "CAMPAIGN_DELETE_CONFIRM": {
+        "message": "Deleting a Campaign will also delete all Quests, Characters and Sessions in that Campaign.\n\nOnce deleted, you cannot recover a Campaign unless it has previously been exported.\n\nAre you sure you want to delete '$CAMPAIGN_NAME$'?",
+        "placeholders": {
+            "campaign_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "CAMPAIGN_NONE":{
+        "message": "You don't have any Campaigns.\n\nCreate, or import, one to get started.\n\n"
+    }
+}

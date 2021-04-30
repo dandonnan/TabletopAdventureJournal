@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/archive
+/source/manifest_ff.json
+/store
+/background.js
+/todo.txt
+/exported.json
+/example.json
