@@ -1,6 +1,9 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.5;
+const currentVersion = 0.6;
+
+const defaultColour = '#c53131';
+const defaultColourHighlight = '#731d1d';
 
 let journalData = null;
 let currentJournalData = null;
@@ -24,6 +27,8 @@ function appLoad() {
     else {
         setFromLastAppState();
     }
+
+    setColoursOnElements();
 
     setupEvents();
 }
@@ -106,6 +111,11 @@ function loadFromStorage() {
         }
         else if (savedData.Version < currentVersion) {
             savedData.Version = currentVersion;
+        }
+
+        if (savedData.CustomColour === undefined) {
+            savedData.CustomColour = defaultColour;
+            savedData.CustomColourHighlighted = defaultColourHighlight;
         }
         
         journalData = savedData;
@@ -230,6 +240,8 @@ function getNewJournalData() {
         LastCampaign: -1,
         LastTab: "Summary",
         Version: currentVersion,
+        "CustomColour": defaultColour,
+        "CustomColourHighlighted": defaultColourHighlight,
         Campaigns: []
     }
 }

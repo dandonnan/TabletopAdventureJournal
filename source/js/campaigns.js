@@ -53,10 +53,6 @@ function showNewCampaignPopup() {
     saveToStorage();
 }
 
-function createNewCampaignFromImport(campaign) {
-    
-}
-
 /**
  * Get the next campaign uid.
  * @returns {number} - The next uid.

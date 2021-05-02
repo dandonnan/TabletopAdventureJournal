@@ -13,7 +13,6 @@ function importFromData() {
     }
     else {
         try {
-            console.log(text);
             let result = JSON.parse(text);
 
             let numberOfCampaigns = journalData.Campaigns.length;
@@ -109,7 +108,6 @@ function importFromData() {
             saveToStorage();
 
         } catch (error) {
-            console.log(error);
             showImportMessage(getLocalisedString('IMPORT_INVALID'));
         }
     }
