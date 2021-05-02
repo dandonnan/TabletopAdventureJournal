@@ -77,16 +77,13 @@
                 </div>
 
                 <div id="journalAbout" class="card hidden">
-                    <button id="btnViewSearchQueries" class="baseButton campaignButton" type="button">About Search Queries</button><br><br>
+                    <button id="btnViewSearchQueries" class="baseButton campaignButton" type="button">About Search Queries</button>
+                    <button id="btnViewColours" class="baseButton campaignButton" type="button">Edit Colours</button><br><br>
                     Tabletop Adventure Journal &copy; 2021 Dan Donnan.<br><br>
                     Tabletop Adventure Journal was developed to help organise D&D notes in an easier to
                     maintain structure than a monolithic Google Doc.<br><br>
                     <b>What's New?</b><br>
-                    - Changes to how data is stored in order to reduce file size<br>
-                    - Quest and Character searches can be filtered using queries<br>
-                    - Popup boxes have titles<br>
-                    - Delete button has moved, with confirmation message for Campaign and Session delete<br>
-                    - Imports and Exports can now be restricted to Campaigns, Quests, Characters or Sessions<br>
+                    - Ability to change colours on headers and buttons
                     <br><br>
                     If you have any suggestions, fire them over to <a href="https://www.twitter.com/dandonnan" target="_blank">@dandonnan</a><br>
                     If you are inclined to throw money at things that have helped you out, you can
@@ -192,9 +189,30 @@
                     &alive&nbsp;&nbsp; - Filter by characters that are alive
                 </div>
             </div>
+
+            <div id="popupEditColour" class="popupBackground hidden">
+                <div class="popupContent">
+                    <div id="popupEditColourTitle" class="popupTitle">Edit Colours</div>
+                    <button id="btnPopupEditColourClose" class="closeButton" type="button">X</button>
+                    <br>
+                    <div id="colourSelectorBackground" class="colourEditTitle">Background</div><button id="btnEditBackgroundColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
+                    <div id="colourSelectorHighlight" class="colourEditTitle">Highlight</div><button id="btnEditHighlightColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
+                    <button id="btnRevertColour" class="baseButton campaignButton" type="button">Revert to Default</button>
+                </div>
+
+                <div id="popupColourChooser" class="popupBackground hidden">
+                    <div class="colourChooserContent">
+                        <input id="txtColourCode" class="colourCodeInput" type="text" placeholder="Enter Colour Code"></input>
+                        <div id="colourSelectorChoices" class="colourSelectorChoices"></div><br><br><br>
+                        <div id="colourChooserPreview" class="colourEditTitle">Colour: </div><div id="colourSelectorPreview" class="colourSelector colourSelectorPreview"></div>
+                        <button id="btnCloseColourChooser" type="button" class="baseButton colourSelectorOkButton">OK</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="/js/localisation.js"></script>
+        <script src="/js/colourChooser.js"></script>
         <script src="/js/ui.js"></script>
         <script src="/js/quests.js"></script>
         <script src="/js/characters.js"></script>

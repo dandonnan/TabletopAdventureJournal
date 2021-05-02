@@ -203,5 +203,26 @@
     },
     "CAMPAIGN_NONE":{
         "message": "You don't have any Campaigns.\n\nCreate, or import, one to get started.\n\n"
+    },
+    "BUTTON_EDIT_COLOURS": {
+        "message": "Edit Colours"
+    },
+    "COLOUR_BACKGROUND": {
+        "message": "Background"
+    },
+    "COLOUR_HIGHLIGHT": {
+        "message": "Highlight"
+    },
+    "COLOUR_REVERT": {
+        "message": "Revert to Default"
+    },
+    "COLOUR_PREVIEW": {
+        "message": "Colour: "
+    },
+    "COLOUR_OK": {
+        "message": "OK"
+    },
+    "COLOUR_ENTER_CODE": {
+        "message": "Enter Colour Code"
     }
 }

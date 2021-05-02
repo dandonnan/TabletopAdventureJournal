@@ -239,8 +239,54 @@ body{
 }
 
 .paypalButton{
+    position: relative;
+    bottom: -5px;
+}
+
+.colourEditTitle{
+    display: inline;
+    padding-right: 10px;
+    position: relative;
+    top: -4px;
+}
+
+.colourChooserContent{
+    width: 60%;
+    height: 50%;
+    top: 25%;
+    left: 20%;
     position: absolute;
-    bottom: 5px;
+    background: white;
+    color: black;
+    border-radius: 80px;
+}
+
+.colourSelectorChoices{
+    position: relative;
+    top: 15%;
+}
+
+.colourSelector{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.colourSelectorPreview{
+    border: 1px solid black;
+}
+
+.colourSelectorOkButton{
+    position: relative;
+    left: 25px;
+    top: -5px;
+}
+
+.colourCodeInput{
+    position: relative;
+    top: 10px;
 }
 
 @keyframes popupAnimation{
