@@ -24,18 +24,23 @@ function deselectAllTabs() {
  * @param {string} elementName - The name of the element.
  * @param {boolean} selected - Whether the tab is selected.
  */
- function setTabSelected(elementName, selected) {
-
+function setTabSelected(elementName, selected) {
     if (selected === true) {
         if (document.getElementById(elementName).classList.contains('selected') === false) {
             document.getElementById(elementName).classList.add('selected');
+            document.getElementById(elementName).removeEventListener('mouseenter', applyHoverColour);
+            document.getElementById(elementName).removeEventListener('mouseleave', removeHoverColour);
+            document.getElementById(elementName).style.background = journalData.CustomColourHighlighted;
         }
     }
     else {
         if (document.getElementById(elementName).classList.contains('selected') === true) {
             document.getElementById(elementName).classList.remove('selected');
+            addOnMouseEnterEventToElement(elementName, applyHoverColour);
+            addOnMouseLeaveEventToInput(elementName, removeHoverColour);
+            document.getElementById(elementName).style.background = journalData.CustomColour;
         }
-    }
+     }
 }
 
 /**
@@ -63,6 +68,24 @@ function addOnBlurEventToInput(inputName, blurEvent) {
  */
 function addOnKeyUpEventToInput(inputName, changeEvent) {
     document.getElementById(inputName).addEventListener('keyup', changeEvent);
+}
+
+/**
+ * Add a mouse enter event to an element.
+ * @param {string} elementName - The name of the element to add the event to.
+ * @param {function} changeEvent - The event to trigger when the mouse enters the element.
+ */
+function addOnMouseEnterEventToElement(elementName, mouseEvent) {
+    document.getElementById(elementName).addEventListener('mouseenter', mouseEvent);
+}
+
+/**
+ * Add a mouse leave event to an element.
+ * @param {string} elementName - The name of the element to add the event to.
+ * @param {function} changeEvent - The event to trigger when the mouse leaves the element.
+ */
+function addOnMouseLeaveEventToInput(elementName, mouseEvent) {
+    document.getElementById(elementName).addEventListener('mouseleave', mouseEvent);
 }
 
 /**
@@ -394,6 +417,7 @@ function setupEvents() {
     addClickEventToButton('btnCampaignsExport', showExportPopup);
 
     addClickEventToButton('btnViewSearchQueries', showSearchQueryPopup);
+    addClickEventToButton('btnViewColours', showEditColourPopup);
 
     addClickEventToButton('btnPopupNewClose', hideNewPopup);
     addClickEventToButton('btnPopupImportClose', hideImportPopup);
@@ -401,6 +425,7 @@ function setupEvents() {
     addClickEventToButton('btnPopupViewAllClose', hideViewAllPopup);
     addClickEventToButton('btnPopupDeleteClose', hideDeletePopup);
     addClickEventToButton('btnPopupSearchQueryClose', hideSearchQueryPopup);
+    addClickEventToButton('btnPopupEditColourClose', hideEditColourPopup);
 
     addClickEventToButton('btnPopupDeleteCancel', hideDeletePopup);
     addClickEventToButton('btnPopupDeleteConfirm', confirmDelete);
@@ -414,6 +439,11 @@ function setupEvents() {
     addClickEventToButton('chkExportSessions', toggleExportOptionsSelection);
 
     addClickEventToButton('btnImportAsJson', importFromData);
+
+    addClickEventToButton('btnEditBackgroundColour', showColourChoicesForBackground);
+    addClickEventToButton('btnEditHighlightColour', showColourChoicesForHighlight);
+    addClickEventToButton('btnRevertColour', revertColoursToDefault);
+    addClickEventToButton('btnCloseColourChooser', hideColourChoicesPopup);
 
     addOnBlurEventToInput('txtHeader', updateCampaignName);
 
@@ -437,4 +467,6 @@ function setupEvents() {
     addOnBlurEventToInput('txtSearch', hideSearchPopupOnDelay);
 
     addOnKeyUpEventToInput('txtSearch', search);
+
+    addOnKeyUpEventToInput('txtColourCode', changeColourFromInput);
 }

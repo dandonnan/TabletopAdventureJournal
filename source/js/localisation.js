@@ -77,6 +77,16 @@ function localiseStaticHtml() {
 
     localiseElement('btnPopupDeleteCancel', 'BUTTON_CANCEL');
     localiseElement('btnPopupDeleteConfirm', 'BUTTON_DELETE');
+
+    localiseElement('btnViewColours', 'BUTTON_EDIT_COLOURS');
+    localiseElement('popupEditColourTitle', 'BUTTON_EDIT_COLOURS');
+    localiseElement('colourSelectorBackground', 'COLOUR_BACKGROUND');
+    localiseElement('colourSelectorHighlight', 'COLOUR_HIGHLIGHT');
+    localiseElement('btnRevertColour', 'COLOUR_REVERT');
+
+    localiseElement('colourChooserPreview', 'COLOUR_PREVIEW');
+    localiseElement('btnCloseColourChooser', 'COLOUR_OK');
+    localiseInputPlaceholder('txtColourCode', 'COLOUR_ENTER_CODE');
 }
 
 /**

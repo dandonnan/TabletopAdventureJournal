@@ -28,6 +28,8 @@ function appLoad() {
         setFromLastAppState();
     }
 
+    setColoursOnElements();
+
     setupEvents();
 }
 
@@ -109,6 +111,11 @@ function loadFromStorage() {
         }
         else if (savedData.Version < currentVersion) {
             savedData.Version = currentVersion;
+        }
+
+        if (savedData.CustomColour === undefined) {
+            savedData.CustomColour = defaultColour;
+            savedData.CustomColourHighlighted = defaultColourHighlight;
         }
         
         journalData = savedData;
@@ -233,6 +240,8 @@ function getNewJournalData() {
         LastCampaign: -1,
         LastTab: "Summary",
         Version: currentVersion,
+        "CustomColour": defaultColour,
+        "CustomColourHighlighted": defaultColourHighlight,
         Campaigns: []
     }
 }
