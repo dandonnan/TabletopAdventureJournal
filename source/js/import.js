@@ -175,7 +175,7 @@ function importCampaigns(campaigns) {
                         let notes = '';
                         
                         if (campaigns[i].Characters[j].Deceased !== undefined && campaigns[i].Characters[j].Deceased !== null) {
-                            deceased = campaigns[i].Characters[j].PartyMember;
+                            deceased = campaigns[i].Characters[j].Deceased;
                         }
 
                         if (campaigns[i].Characters[j].PartyMember !== undefined && campaigns[i].Characters[j].PartyMember !== null) {
