@@ -130,10 +130,11 @@ function displayAllQuests() {
 
     if (quests.length <= 0) {
         html = getLocalisedString('QUEST_NONE');
+        hideElement('btnViewAllAlphabetical');
     }
     else {
         for (let i = 0; i < quests.length; i++) {
-            html += getHtmlForQuestSearchResult(quests[i]);
+            html += getHtmlForQuestSearchResult(quests[i], i);
         }
     }
 
@@ -143,18 +144,61 @@ function displayAllQuests() {
 }
 
 /**
+ * Reorder Quests to be alphabetical.
+ * @param {boolean} reverseAlphabetical - Whether to order the list in reverse.
+ */
+function reorderQuestsAlphabetically(reverseAlphabetical) {
+    let quests = currentJournalData.Quests;
+
+    quests.sort((a, b) => a.Name.localeCompare(b.Name));
+    
+    if (reverseAlphabetical === true) {
+        quests.reverse();
+    }
+
+    currentJournalData.Quests = quests;
+}
+
+/** Reorder Quests by their completed state. */
+function reorderQuestsByCompleted() {
+    let showIncomplete = false;
+    let quests = currentJournalData.Quests;
+
+    if (document.getElementById('btnViewAllComplete').innerText === getLocalisedString('FILTER_COMPLETE')) {
+        localiseElement('btnViewAllComplete', 'FILTER_INCOMPLETE');
+    }
+    else {
+        showIncomplete = true;
+        localiseElement('btnViewAllComplete', 'FILTER_COMPLETE');
+    }
+
+    quests.sort((a, b) => b.Completed - a.Completed);
+
+    if (showIncomplete === true) {
+        quests.reverse();
+    }
+
+    currentJournalData.Quests = quests;
+
+    showViewAllPopup();
+
+    saveToStorage();
+}
+
+/**
  * Gets the HTML for a Quest search result.
  * @param {object} quest - The Quest.
+ * @param {number} index - The index of the Quest.
  * @returns {string} - The HTML for a Quest search result.
  */
-function getHtmlForQuestSearchResult(quest) {
+function getHtmlForQuestSearchResult(quest, index) {
     let completed = '';
 
     if (quest.Completed === true) {
-        completed = '(Complete) '
+        completed = '<div class="searchTag searchTagQuestComplete">' + getLocalisedString('QUEST_COMPLETE') + '</div> '
     }
 
-    return getHtmlForSearchResult('quest', quest.Uid, quest.Name, completed + quest.Objective);
+    return getHtmlForSearchResult('quest', quest.Uid, quest.Name, completed + '<div class="searchExtraDetail">' + quest.Objective + '</div>', index);
 }
 
 /**
@@ -164,6 +208,8 @@ function getHtmlForQuestSearchResult(quest) {
 function addClickEventToQuestSearchResults(quests) {
     for (let i = 0; i < quests.length; i++){
         addClickEventToButton('quest' + quests[i].Uid, loadQuest);
+        addClickEventToButton('moveUp' + i, moveQuestUp);
+        addClickEventToButton('moveDown' + i, moveQuestDown);
     }
 }
 
@@ -188,6 +234,36 @@ function loadQuest(clickEvent) {
 
     hideElement('popupViewAll');
     showQuestTab();
+}
+
+/**
+ * Move a Quest up.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+ function moveQuestUp(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
+
+    let quest = currentJournalData.Quests[index];
+    currentJournalData.Quests.splice(index, 1);
+    currentJournalData.Quests.splice(index - 1, 0, quest);
+
+    showViewAllPopup();
+    saveToStorage();
+}
+
+/**
+ * Move a Quest down.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+function moveQuestDown(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
+
+    let quest = currentJournalData.Quests[index];
+    currentJournalData.Quests.splice(index, 1);
+    currentJournalData.Quests.splice(index + 1, 0, quest);
+
+    showViewAllPopup();
+    saveToStorage();
 }
 
 /**
@@ -241,7 +317,7 @@ function searchQuests(searchTerm) {
         let html = '';
 
         for (let i = 0; i < matchingQuests.length; i++){
-            html += getHtmlForQuestSearchResult(matchingQuests[i]);
+            html += getHtmlForQuestSearchResult(matchingQuests[i], -1);
         }
 
         setElementContent('searchContainer', html);

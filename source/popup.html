@@ -19,24 +19,47 @@
             </div>
 
             <div id="journal" class="hidden">
-                <input id="txtHeader" class="inputBox titleHeader" type="text" placeholder="Campaign Name"></input>
-                <br>
-
-                <div id="journalTabs" class="tabBar">
-                    <button id="tabSummary" class="tabButton selected" type="button">Summary</button>
-                    <button id="tabQuest" class="tabButton" type="button">Quests</button>
-                    <button id="tabCharacters" class="tabButton" type="button">Characters</button>
-                    <button id="tabSessions" class="tabButton" type="button">Sessions</button>
-                    <button id="tabCampaigns" class="tabButton" type="button">Campaigns</button>
-                    <button id="tabAbout" class="tabButton" type="button">About</button>
+                <input id="txtHeader" class="inputBox titleHeader campaignName" type="text" placeholder="Campaign Name"></input>
+                <div id="titleBarColourEdit" class="titleBarColourEdit">
+                    <div id="titleBarBackgroundColour" class="colourSelector colourSelectorPreview titleColourEditBackground"></div>
+                    <div id="titleBarForegroundColour" class="colourSelector colourSelectorPreview titleColourEditForeground"></div>
                 </div>
                 <br>
 
+                <div id="journalTabs" class="tabBar">
+                    <button id="tabSummary" class="tabButton selected" type="button">
+                        <img src="images/summary.png" />
+                        <div id="tabSummaryText" class="tabButtonText hidden">Summary</div>
+                    </button>
+                    <button id="tabQuest" class="tabButton" type="button">
+                        <img src="images/quests.png" />
+                        <div id="tabQuestText" class="tabButtonText hidden">Quest</div>
+                    </button>
+                    <button id="tabCharacters" class="tabButton" type="button">
+                        <img src="images/characters.png" />
+                        <div id="tabCharactersText" class="tabButtonText hidden">Characters</div>
+                    </button>
+                    <button id="tabSessions" class="tabButton" type="button">
+                        <img src="images/sessions.png" />
+                        <div id="tabSessionsText" class="tabButtonText hidden">Sessions</div>
+                    </button>
+                    <button id="tabCampaigns" class="tabButton" type="button">
+                        <img src="images/campaigns.png" />
+                        <div id="tabCampaignsText" class="tabButtonText hidden">Campaigns</div>
+                    </button>
+                    <button id="tabAbout" class="tabButton" type="button">
+                        <img src="images/settings.png" />
+                        <div id="tabAboutText" class="tabButtonText hidden">Settings</div>
+                    </button>
+                </div>
+
                 <div id="journalSearch" class="journalSearch hidden">
                     <input id="txtSearch" type="text" placeholder="Search" class="searchBox"></input>
-                    <button id="btnViewAll" class="baseButton viewAllButton" type="button">View All</button>
-                    <button id="btnAddNew" class="baseButton addButton" type="button">New</button>
-                    <button id="btnDelete" class="baseButton deleteButton" type="button">Delete</button>
+                    <div class="searchButtons">
+                        <button id="btnViewAll" class="baseButton viewAllButton" type="button">View All</button>
+                        <button id="btnAddNew" class="baseButton addButton" type="button">New</button>
+                        <button id="btnDelete" class="baseButton deleteButton" type="button">Delete</button>
+                    </div>
                     <br><br>
                 </div>
 
@@ -77,14 +100,12 @@
                 </div>
 
                 <div id="journalAbout" class="card hidden">
+                    <br>
                     <button id="btnViewSearchQueries" class="baseButton campaignButton" type="button">About Search Queries</button>
-                    <button id="btnViewColours" class="baseButton campaignButton" type="button">Edit Colours</button><br><br>
+                    <button id="btnVersionHistory" class="baseButton campaignButton" type="button">Version History</button><br><br>
                     Tabletop Adventure Journal &copy; 2021 Dan Donnan.<br><br>
                     Tabletop Adventure Journal was developed to help organise D&D notes in an easier to
                     maintain structure than a monolithic Google Doc.<br><br>
-                    <b>What's New?</b><br>
-                    - Fixed bug where import would incorrectly mark Party Members as Deceased
-                    <br><br>
                     If you have any suggestions, fire them over to <a href="https://www.twitter.com/dandonnan" target="_blank">@dandonnan</a><br>
                     If you are inclined to throw money at things that have helped you out, you can
                     <form action="https://www.paypal.com/donate" method="post" target="_blank" class="paypalButtonWrapper">
@@ -156,6 +177,12 @@
                     <div id="popupViewAllTitle" class="popupTitle"></div>
                     <button id="btnPopupViewAllClose" class="closeButton" type="button">X</button>
                     <br>
+                    <button id="btnViewAllAlphabetical" class="baseButton" type="button">A-Z</button>
+                    <button id="btnViewAllComplete" class="baseButton" type="button">Complete</button>
+                    <button id="btnViewAllParty" class="baseButton" type="button">Party</button>
+                    <button id="btnViewAllDeceased" class="baseButton" type="button">Deceased</button>
+                    <button id="btnViewAllLocation" class="baseButton" type="button">Location A-Z</button>
+                    <br><br>
                     <div id="viewAllContainer" class="searchContainer"></div>
                 </div>
             </div>
@@ -176,17 +203,19 @@
                     <div class="popupTitle">Search Queries</div>
                     <button id="btnPopupSearchQueryClose" class="closeButton" type="button">X</button>
                     <br>
-                    It is possible to filter searches by adding queries to the end of the search.<br><br>
+                    <div class="popupWithText">
+                        It is possible to filter searches by adding queries to the end of the search.<br><br>
 
-                    <b>Quests</b><br>
-                    &complete&nbsp;&nbsp; - Filter by completed quests<br>
-                    &incomplete&nbsp;&nbsp; - Filter by incomplete quests<br><br>
+                        <b>Quests</b><br>
+                        &complete&nbsp;&nbsp; - Filter by completed quests<br>
+                        &incomplete&nbsp;&nbsp; - Filter by incomplete quests<br><br>
 
-                    <b>Characters</b><br>
-                    &party&nbsp;&nbsp; - Filter by characters in the party<br>
-                    &nonparty&nbsp;&nbsp; - Filter by characters not in the party<br>
-                    &dead&nbsp;&nbsp; - Filter by characters that are dead<br>
-                    &alive&nbsp;&nbsp; - Filter by characters that are alive
+                        <b>Characters</b><br>
+                        &party&nbsp;&nbsp; - Filter by characters in the party<br>
+                        &nonparty&nbsp;&nbsp; - Filter by characters not in the party<br>
+                        &dead&nbsp;&nbsp; - Filter by characters that are dead<br>
+                        &alive&nbsp;&nbsp; - Filter by characters that are alive
+                    </div>
                 </div>
             </div>
 
@@ -207,6 +236,23 @@
                         <div id="colourChooserPreview" class="colourEditTitle">Colour: </div><div id="colourSelectorPreview" class="colourSelector colourSelectorPreview"></div>
                         <button id="btnCloseColourChooser" type="button" class="baseButton colourSelectorOkButton">OK</button>
                     </div>
+                </div>
+            </div>
+
+            <div id="popupUpdate" class="popupBackground hidden">
+                <div class="popupContent">
+                    <h1 id="updatedTitle">Tabletop Adventure Journal has been updated!</h1>
+                    <div id="updatedInfo" class="updatedThisVersion"></div><br>
+                    <div id="updatedHaveFun"></div><br>
+                    <button id="btnCloseUpdated" class="baseButton campaignButton" type="button">OK</button>
+                </div>
+            </div>
+
+            <div id="popupVersionHistory" class="popupBackground hidden">
+                <div class="popupContent">
+                    <div id="popupVersionHistoryTitle" class="popupTitle">Version History</div>
+                    <button id="btnPopupVersionHistoryClose" class="closeButton" type="button">X</button>
+                    <div id="versionHistoryLog" class="popupWithText"></div>
                 </div>
             </div>
         </div>

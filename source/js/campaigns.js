@@ -126,12 +126,13 @@ function displayAllCampaigns() {
 
     if (campaigns.length <= 0) {
         html = 'You haven\'t set up any Campaigns.';
+        hideElement('btnViewAllAlphabetical');
     }
     else {
         for (let i = 0; i < campaigns.length; i++){
             let campaign = loadCampaignFromStorage(campaigns[i])
 
-            html += getHtmlForCampaignSearchResult(campaign);
+            html += getHtmlForCampaignSearchResult(campaign, i);
         }
     }
 
@@ -140,16 +141,35 @@ function displayAllCampaigns() {
     for (let i = 0; i < campaigns.length; i++){
         let campaign = loadCampaignFromStorage(campaigns[i]);
         addClickEventToButton('campaign' + campaign.Uid, loadCampaign);
+        addClickEventToButton('moveUp' + i, moveCampaignUp);
+        addClickEventToButton('moveDown' + i, moveCampaignDown);
     }
+}
+
+/**
+ * Reorder Campaigns to be alphabetical.
+ * @param {boolean} reverseAlphabetical - Whether to order the list in reverse.
+ */
+ function reorderCampaignsAlphabetically(reverseAlphabetical) {
+    let campaigns = currentJournalData.Campaigns;
+    
+    campaigns.sort((a, b) => a.Name.localeCompare(b.Name));
+    
+    if (reverseAlphabetical === true) {
+        campaigns.reverse();
+    }
+
+    currentJournalData.Campaigns = campaigns;
 }
 
 /**
  * Gets the HTML for a Campaign search result.
  * @param {object} campaign - The Campaign.
+ * @param {number} index - The index of the Campaign.
  * @returns {string} - The HTML for a Campaign search result.
  */
-function getHtmlForCampaignSearchResult(campaign) {
-    return getHtmlForSearchResult('campaign', campaign.Uid, campaign.Name, '');
+function getHtmlForCampaignSearchResult(campaign, index) {
+    return getHtmlForSearchResult('campaign', campaign.Uid, campaign.Name, '', index);
 }
 
 /**
@@ -209,6 +229,36 @@ function loadCampaign(clickEvent) {
 }
 
 /**
+ * Move a Campaign up.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+ function moveCampaignUp(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
+
+    let campaign = journalData.Campaigns[index];
+    journalData.Campaigns.splice(index, 1);
+    journalData.Campaigns.splice(index - 1, 0, campaign);
+
+    showViewAllPopup();
+    saveToStorage();
+}
+
+/**
+ * Move a Campaign down.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+function moveCampaignDown(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
+
+    let campaign = journalData.Campaigns[index];
+    journalData.Campaigns.splice(index, 1);
+    journalData.Campaigns.splice(index + 1, 0, campaign);
+
+    showViewAllPopup();
+    saveToStorage();
+}
+
+/**
  * Search Sessions.
  * @param {string} searchTerm - The search term.
  */
@@ -225,7 +275,7 @@ function loadCampaign(clickEvent) {
     for (let i = 0; i < campaigns.length; i++){
         let campaign = loadCampaignFromStorage(campaigns[i]);
 
-        if (campaigns.Name.toLowerCase().indexOf(searchTerm) > -1) {
+        if (campaign.Name.toLowerCase().indexOf(searchTerm) > -1) {
             matchingCampaigns.push(campaign);
         }
     }
@@ -239,7 +289,7 @@ function loadCampaign(clickEvent) {
         let html = '';
 
         for (let i = 0; i < matchingCampaigns.length; i++){
-            html += getHtmlForCampaignSearchResult(matchingCampaigns[i]);
+            html += getHtmlForCampaignSearchResult(matchingCampaigns[i], -1);
         }
 
         setElementContent('searchContainer', html);

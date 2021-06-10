@@ -112,10 +112,11 @@ function displayAllSessions() {
 
     if (sessions.length <= 0) {
         html = getLocalisedString('SESSION_NONE');
+        hideElement('btnViewAllAlphabetical');
     }
     else {
         for (let i = 0; i < sessions.length; i++) {
-            html += getHtmlForSessionSearchResult(sessions[i]);
+            html += getHtmlForSessionSearchResult(sessions[i], i);
         }
     }
 
@@ -125,12 +126,29 @@ function displayAllSessions() {
 }
 
 /**
+ * Reorder Sessions to be alphabetical.
+ * @param {boolean} reverseAlphabetical - Whether to order the list in reverse.
+ */
+ function reorderSessionsAlphabetically(reverseAlphabetical) {
+    let sessions = currentJournalData.Sessions;
+    
+    sessions.sort((a, b) => a.Name.localeCompare(b.Name));
+    
+    if (reverseAlphabetical === true) {
+        sessions.reverse();
+    }
+
+    currentJournalData.Sessions = sessions;
+}
+
+/**
  * Gets the HTML for a Session search result.
  * @param {object} session - The Session.
+ * @param {number} index - The index of the session.
  * @returns {object} - The HTML for a Session search result.
  */
-function getHtmlForSessionSearchResult(session) {
-    return getHtmlForSearchResult('session', session.Uid, session.Name, '');
+function getHtmlForSessionSearchResult(session, index) {
+    return getHtmlForSearchResult('session', session.Uid, session.Name, '', index);
 }
 
 /**
@@ -140,6 +158,8 @@ function getHtmlForSessionSearchResult(session) {
  function addClickEventToSessionSearchResults(sessions) {
     for (let i = 0; i < sessions.length; i++){
         addClickEventToButton('session' + sessions[i].Uid, loadSession);
+        addClickEventToButton('moveUp' + i, moveSessionUp);
+        addClickEventToButton('moveDown' + i, moveSessionDown);
     }
 }
 
@@ -164,6 +184,36 @@ function loadSession(clickEvent) {
 
     hideElement('popupViewAll');
     showSessionTab();
+}
+
+/**
+ * Move a Session up.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+ function moveSessionUp(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
+
+    let session = currentJournalData.Sessions[index];
+    currentJournalData.Sessions.splice(index, 1);
+    currentJournalData.Sessions.splice(index - 1, 0, session);
+
+    showViewAllPopup();
+    saveToStorage();
+}
+
+/**
+ * Move a Session down.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+function moveSessionDown(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
+
+    let session = currentJournalData.Sessions[index];
+    currentJournalData.Sessions.splice(index, 1);
+    currentJournalData.Sessions.splice(index + 1, 0, session);
+
+    showViewAllPopup();
+    saveToStorage();
 }
 
 /**
@@ -196,7 +246,7 @@ function loadSession(clickEvent) {
         let html = '';
 
         for (let i = 0; i < matchingSessions.length; i++){
-            html += getHtmlForSessionSearchResult(matchingSessions[i]);
+            html += getHtmlForSessionSearchResult(matchingSessions[i], -1);
         }
 
         setElementContent('searchContainer', html);

@@ -220,7 +220,7 @@
         "message": "You don't have any Campaigns.\n\nCreate, or import, one to get started.\n\n"
     },
     "BUTTON_EDIT_COLOURS": {
-        "message": "Edit Colours"
+        "message": "Edit Colors"
     },
     "COLOUR_BACKGROUND": {
         "message": "Background"
@@ -232,13 +232,13 @@
         "message": "Revert to Default"
     },
     "COLOUR_PREVIEW": {
-        "message": "Colour: "
+        "message": "Color: "
     },
     "COLOUR_OK": {
         "message": "OK"
     },
     "COLOUR_ENTER_CODE": {
-        "message": "Enter Colour Code"
+        "message": "Enter Color Code"
     },
     "VERSION_LOG": {
         "message": "Version History"
@@ -253,13 +253,13 @@
         "message": "v0.5 / v0.5.1 - Reformatting Data\n - Changes to how data is stored in order to reduce file size\n - Quest and Character searches can be filtered using queries\n - Popup boxes have titles\n - Delete button has moved, with confirmation message for Campaign and Session delete\n - Imports and Exports can now be restricted to Campaigns, Quests, Characters or Sessions"
     },
     "VERSION_LOG_v0_6": {
-        "message": "v0.6 - Customisable Colours\n - Ability to change colours on headers and buttons"
+        "message": "v0.6 - Customizable Colors\n - Ability to change colors on headers and buttons"
     },
     "VERSION_LOG_v0_6_1": {
         "message": "v0.6.1 - Bug Fixes\n - Fixed bug where import would incorrectly mark Party Members as Deceased"
     },
     "VERSION_LOG_v0_7": {
-        "message": "v0.7 - UX Improvements\n - Added menu icons\n - Moved colour edit option from the About tab to the main page\n - Colour coded tags when searching or viewing Characters and Quests\n - Added ability to move data up and down on the View All popup\n - Added ability to sort data on the View All popup\n - Fixed a bug where Campaign search wouldn't return any results\n - Fixed a bug where Search Query information did not display correctly on Firefox"
+        "message": "v0.7 - UX Improvements\n - Added menu icons\n - Moved color edit option from the About tab to the main page\n - Color coded tags when searching or viewing Characters and Quests\n - Added ability to move data up and down on the View All popup\n - Added ability to sort data on the View All popup\n - Fixed a bug where Campaign search wouldn't return any results\n - Fixed a bug where Search Query information did not display correctly on Firefox"
     },
     "FILTER_ALPHABETICAL": {
         "message": "A-Z"

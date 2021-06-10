@@ -148,10 +148,11 @@ function displayAllCharacters() {
 
     if (characters.length <= 0) {
         html = getLocalisedString('CHARACTER_NONE');
+        hideElement('btnViewAllAlphabetical');
     }
     else {
         for (let i = 0; i < characters.length; i++) {
-            html += getHtmlForCharacterSearchResult(characters[i]);
+            html += getHtmlForCharacterSearchResult(characters[i], i);
         }
     }
 
@@ -161,18 +162,118 @@ function displayAllCharacters() {
 }
 
 /**
- * Gets the HTML for a Character search result.
- * @param {object} characters - The Character.
- * @returns {string} - The HTML for a Character search result.
+ * Reorder Characters to be alphabetical.
+ * @param {boolean} reverseAlphabetical - Whether to order the list in reverse.
  */
-function getHtmlForCharacterSearchResult(character) {
-    let dead = '';
-
-    if (character.Deceased === true) {
-        dead = '(Deceased) '
+ function reorderCharactersAlphabetically(reverseAlphabetical) {
+    let characters = currentJournalData.Characters;
+    
+    characters.sort((a, b) => a.Name.localeCompare(b.Name));
+    
+    if (reverseAlphabetical === true) {
+        characters.reverse();
     }
 
-    return getHtmlForSearchResult('character', character.Uid, character.Name, dead + character.LastLocation);
+    currentJournalData.Characters = characters;
+}
+
+/** Reorder Characters based on if they are a party member. */
+function reorderCharactersByParty() {
+    let showNonParty = false;
+    let characters = currentJournalData.Characters;
+
+    if (document.getElementById('btnViewAllParty').innerText === getLocalisedString('FILTER_PARTY')) {
+        localiseElement('btnViewAllParty', 'FILTER_NON_PARTY');
+    }
+    else {
+        showNonParty = true;
+        localiseElement('btnViewAllParty', 'FILTER_PARTY');
+    }
+
+    characters.sort((a, b) => b.PartyMember - a.PartyMember);
+
+    if (showNonParty === true) {
+        characters.reverse();
+    }
+
+    currentJournalData.Characters = characters;
+
+    showViewAllPopup();
+
+    saveToStorage();
+}
+
+/** Reorder Characters based on if they are dead. */
+function reorderCharactersByDead() {
+    let showAlive = false;
+    let characters = currentJournalData.Characters;
+
+    if (document.getElementById('btnViewAllDeceased').innerText === getLocalisedString('FILTER_DEAD')) {
+        localiseElement('btnViewAllDeceased', 'FILTER_ALIVE');
+    }
+    else {
+        showAlive = true;
+        localiseElement('btnViewAllDeceased', 'FILTER_DEAD');
+    }
+
+    characters.sort((a, b) => b.Deceased - a.Deceased);
+
+    if (showAlive === true) {
+        characters.reverse();
+    }
+
+    currentJournalData.Characters = characters;
+
+    showViewAllPopup();
+
+    saveToStorage();
+}
+
+/** Reorder Characters based on their location. */
+function reorderCharactersByLocation() {
+    let reverse = false;
+    let characters = currentJournalData.Characters;
+
+    if (document.getElementById('btnViewAllLocation').innerText === getLocalisedString('FILTER_LOCATION_ALPHABETICAL')) {
+        localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL_REVERSE');
+    }
+    else {
+        reverse = true;
+        localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
+    }
+
+    characters.sort((a, b) => a.LastLocation.localeCompare(b.LastLocation));
+
+    if (reverse === true) {
+        characters.reverse();
+    }
+
+    currentJournalData.Characters = characters;
+
+    showViewAllPopup();
+
+    saveToStorage();
+}
+
+/**
+ * Gets the HTML for a Character search result.
+ * @param {object} characters - The Character.
+ * @param {number} index - The index of the Character.
+ * @returns {string} - The HTML for a Character search result.
+ */
+function getHtmlForCharacterSearchResult(character, index) {
+    let dead = '';
+    let party = '';
+
+    if (character.Deceased === true) {
+        dead = '<div class="searchTag searchTagCharacterDead">' + getLocalisedString('CHARACTER_DECEASED') + '</div> '
+    }
+
+    if (character.PartyMember === true) {
+        party = '<div class="searchTag searchTagCharacterParty">' + getLocalisedString('CHARACTER_PARTY') + '</div> '
+    }
+
+    return getHtmlForSearchResult('character', character.Uid, character.Name, party + dead + '<div class="searchExtraDetail">' + character.LastLocation + '</div>', index);
 }
 
 /**
@@ -182,6 +283,8 @@ function getHtmlForCharacterSearchResult(character) {
  function addClickEventToCharacterSearchResults(characters) {
     for (let i = 0; i < characters.length; i++){
         addClickEventToButton('character' + characters[i].Uid, loadCharacter);
+        addClickEventToButton('moveUp' + i, moveCharacterUp);
+        addClickEventToButton('moveDown' + i, moveCharacterDown);
     }
 }
 
@@ -206,6 +309,36 @@ function loadCharacter(clickEvent) {
 
     hideElement('popupViewAll');
     showCharacterTab();
+}
+
+/**
+ * Move a Character up.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+function moveCharacterUp(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
+
+    let character = currentJournalData.Characters[index];
+    currentJournalData.Characters.splice(index, 1);
+    currentJournalData.Characters.splice(index - 1, 0, character);
+
+    showViewAllPopup();
+    saveToStorage();
+}
+
+/**
+ * Move a Character down.
+ * @param {object} clickEvent - The click event that triggered the move.
+ */
+function moveCharacterDown(clickEvent) {
+    let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
+
+    let character = currentJournalData.Characters[index];
+    currentJournalData.Characters.splice(index, 1);
+    currentJournalData.Characters.splice(index + 1, 0, character);
+
+    showViewAllPopup();
+    saveToStorage();
 }
 
 /**
@@ -275,7 +408,7 @@ function loadCharacter(clickEvent) {
         let html = '';
 
         for (let i = 0; i < matchingCharacters.length; i++){
-            html += getHtmlForCharacterSearchResult(matchingCharacters[i]);
+            html += getHtmlForCharacterSearchResult(matchingCharacters[i], -1);
         }
 
         setElementContent('searchContainer', html);
