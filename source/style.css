@@ -7,7 +7,8 @@ body{
 }
 
 .wrapper{
-    width: 500px;
+    width: 510px;
+    height: 400px;
 }
 
 .hidden{
@@ -19,6 +20,32 @@ body{
     text-align: center;
     width: 99%;
     margin-bottom: 10px;
+}
+
+.titleBarColourEdit {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+}
+
+.titleBarColourEdit:hover {
+    cursor: pointer;
+}
+
+.titleColourEditForeground {
+    top: 5px;
+    right: 20px;
+}
+
+.titleColourEditBackground {
+    top: 10px;
+    right: -15px;
+}
+
+.campaignName {
+    width: 90%;
+    position: relative;
+    left: -22px;
 }
 
 .allowLineBreaks{
@@ -48,16 +75,18 @@ body{
 }
 
 .addButton{
-    width: 50px;
-    right: 80px;
-    height: 20px;
+    width: 56px;
+    right: 72px;
+    height: 30px;
+    top: -7px;
     position: absolute;
 }
 
 .deleteButton{
-    width: 65px;
-    right: 10px;
-    height: 20px;
+    width: 70px;
+    right: 2px;
+    height: 30px;
+    top: -7px;
     position: absolute;
 }
 
@@ -67,10 +96,10 @@ body{
 
 .tabButton{
     background: #c53131;
-    width: 15%;
     color: white;
     cursor: pointer;
     border: none;
+    width: 80px;
 }
 
 .tabButton:hover{
@@ -84,11 +113,20 @@ body{
     outline: none;
 }
 
+.tabButton.selected > .tabButtonText{
+    display: block;
+}
+
+.tabButton:hover > .tabButtonText{
+    display: block;
+}
+
 .viewAllButton{
-    width: 65px;
-    height: 20px;
+    width: 80px;
+    height: 30px;
     position: absolute;
-    right: 135px;
+    right: 128px;
+    top: -7px;
 }
 
 .inputBox{
@@ -117,6 +155,14 @@ body{
 
 .searchBox{
     width: 58%;
+    height: 25px;
+}
+
+.searchButtons{
+    position: relative;
+    display: inline-block;
+    top: -13px;
+    left: 205px;
 }
 
 .objectiveBox{
@@ -132,12 +178,12 @@ body{
 }
 
 .notes{
-    min-width: 480px;
-    min-height: 100px;
+    min-width: 500px;
+    min-height: 150px;
 }
 
 .notes.summary{
-    min-height: 200px;
+    min-height: 250px;
 }
 
 .popupBackground{
@@ -208,8 +254,8 @@ body{
 
 .searchContainer{
     overflow: auto;
-    max-height: 165px;
-    max-width: 400px;
+    max-height: 180px;
+    max-width: 420px;
 }
 
 .searchWrapper{
@@ -217,6 +263,11 @@ body{
     color: black;
     cursor: pointer;
     text-align: left;
+    padding: 1px;
+}
+
+.searchWrapper.withArrows{
+    width: 85%;
 }
 
 .searchWrapper:hover{
@@ -225,11 +276,73 @@ body{
     transition: background 0.1s, color 0.1s;
 }
 
+.searchTag{
+    display: inline;
+    padding: 1px;
+    color: white;
+}
+
+.searchTagQuestComplete {
+    background: darkseagreen;
+}
+
+.searchWrapper:hover > .searchTagQuestComplete{
+    background: darkolivegreen;
+    transition: background 0.1s;
+}
+
+.searchTagCharacterParty{
+    background: cornflowerblue;
+}
+
+.searchWrapper:hover > .searchTagCharacterParty{
+    background: darkcyan;
+    transition: background 0.1s;
+}
+
+.searchTagCharacterDead{
+    background: indianred;
+}
+
+.searchWrapper:hover > .searchTagCharacterDead{
+    background: darkred;
+    transition: background 0.1s;
+}
+
+.searchExtraDetail{
+    display: contents;
+}
+
+.moveArrow{
+    position: relative;
+    bottom: 20px;
+    width: 5%;
+    border-radius: 10px;
+    margin-bottom: -10px;
+    color: white;
+    background: grey;
+}
+
+.arrowUp{
+    left: 86%;
+}
+
+.arrowDown{
+    left: 92%;
+    bottom: 24px;
+}
+
+.moveArrow:hover{
+    background: #bdbdbd;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
 .popupSearch{
     background: white;
     width: 80%;
     position: absolute;
-    top: 103px;
+    top: 148px;
     left: 9px;
     color: black;
 }
@@ -287,6 +400,16 @@ body{
 .colourCodeInput{
     position: relative;
     top: 10px;
+}
+
+.popupWithText {
+    overflow: auto;
+    max-height: 70%;
+}
+
+.updatedThisVersion{
+    max-height: 120px;
+    overflow: auto;
 }
 
 @keyframes popupAnimation{

@@ -49,7 +49,9 @@ function setTabSelected(elementName, selected) {
  * @param {function} clickEvent - The event to trigger when the button is clicked.
  */
 function addClickEventToButton(buttonName, clickEvent) {
-    document.getElementById(buttonName).addEventListener('click', clickEvent);
+    if (document.getElementById(buttonName) !== null) {
+        document.getElementById(buttonName).addEventListener('click', clickEvent);
+    }
 }
 
 /**
@@ -230,6 +232,12 @@ function showImportMessage(message) {
 /** Hide the view all popup. */
 function hideViewAllPopup() {
     hideElement('popupViewAll');
+
+    localiseElement('btnViewAllAlphabetical', 'FILTER_ALPHABETICAL');
+    localiseElement('btnViewAllComplete', 'FILTER_COMPLETE');
+    localiseElement('btnViewAllParty', 'FILTER_PARTY');
+    localiseElement('btnViewAllDeceased', 'FILTER_DEAD');
+    localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
 }
 
 /** Hide the search popup. */
@@ -250,15 +258,24 @@ function showViewAllPopup() {
     let title = '';
     
     showElement('popupViewAll');
+    showElement('btnViewAllAlphabetical');
+    hideElement('btnViewAllComplete');
+    hideElement('btnViewAllParty');
+    hideElement('btnViewAllDeceased');
+    hideElement('btnViewAllLocation');
 
     switch (journalData.LastTab) {
         case 'Quest':
             displayAllQuests();
+            showElement('btnViewAllComplete');
             title = getLocalisedString('TAB_QUESTS');
             break;
         
         case 'Character':
             displayAllCharacters();
+            showElement('btnViewAllParty');
+            showElement('btnViewAllDeceased');
+            showElement('btnViewAllLocation');
             title = getLocalisedString('TAB_CHARACTERS');
             break;
         
@@ -381,16 +398,131 @@ function hideSearchQueryPopup() {
     hideElement('popupSearchQueryGuide');
 }
 
+/** Show the app updated popup. */
+function showUpdatedPopup() {
+    showElement('popupUpdate');
+
+    let latestVersion = getLocalisedString('VERSION_LOG_v0_7');
+
+    latestVersion = latestVersion.substr(latestVersion.indexOf('\n') + 1);
+
+    while (latestVersion.indexOf('\n') > -1) {
+        latestVersion = latestVersion.replace('\n', '<br>');
+    }
+
+    setElementContent('updatedInfo', latestVersion);
+}
+
+/** Hide the app updated popup. */
+function hideUpdatePopup() {
+    hideElement('popupUpdate');
+}
+
+/** Show the version history popup. */
+function showVersionHistoryPopup() {
+    let history = [
+        'VERSION_LOG_v0_7',
+        'VERSION_LOG_v0_6_1',
+        'VERSION_LOG_v0_6',
+        'VERSION_LOG_v0_5',
+        'VERSION_LOG_v0_2',
+        'VERSION_LOG_v0_1'
+    ];
+
+    let html = '';
+
+    for (let i = 0; i < history.length; i++){
+        let lines = getLocalisedString(history[i]);
+
+        let lineBreakIndex = lines.indexOf('\n');
+
+        if (lineBreakIndex === -1) {
+            html += '<h2>' + lines + '</h2>';
+        }
+        else {
+            html += '<h2>' + lines.substr(0, lineBreakIndex) + '</h2>';
+
+            lines = lines.substr(lineBreakIndex + 1);
+        }
+
+        while (lineBreakIndex > -1) {
+            lineBreakIndex = lines.indexOf('\n');
+
+            if (lineBreakIndex === -1) {
+                html += lines;
+            }
+            else {
+                html += lines.substr(0, lineBreakIndex) + '<br>';
+
+                lines = lines.substr(lineBreakIndex + 1);
+            }
+        }
+    }
+
+    showElement('popupVersionHistory');
+    setElementContent('versionHistoryLog', html);
+}
+
+/** Hide the version history popup. */
+function hideVersionHistoryPopup() {
+    hideElement('popupVersionHistory');
+}
+
 /**
  * Get HTML for a search result.
  * @param {string} type - The search result object type.
  * @param {number} uid - The uid of the object.
  * @param {string} title - The title of the search result.
  * @param {string} extraContent - Additional content to display.
+ * @param {number} index - The index of the object.
  * @returns {object} - The html for a search result.
  */
-function getHtmlForSearchResult(type, uid, title, extraContent) {
-    return '<div id="' + type + uid + '" class="searchWrapper"><div class="title">' + title + '</div><div>' + extraContent + '</div></div>';
+function getHtmlForSearchResult(type, uid, title, extraContent, index) {
+    let movementControls = '';
+    let withArrows = '';
+
+    if (index > -1) {
+        withArrows = ' withArrows';
+
+        if (index > 0) {
+            movementControls = '<div id="moveUp' + index + '" class="moveArrow arrowUp">/\\</div>';
+        }
+
+        if (index < getFinalIndexForType(type)) {
+            movementControls += '<div id="moveDown' + index + '" class="moveArrow arrowDown">\\/</div>';
+        }
+    }
+
+    return '<div id="' + type + uid + '" class="searchWrapper' + withArrows + '"><div class="title">' + title + '</div>' + extraContent + '</div>' + movementControls;
+}
+
+/**
+ * 
+ * @param {string} type - The type of object.
+ * @returns {number} - The final index of the type.
+ */
+function getFinalIndexForType(type) {
+    let index = -1;
+
+    switch (type) {
+        case 'campaign':
+            index = journalData.Campaigns.length - 1;
+            break;
+        
+        case 'character':
+            index = currentJournalData.Characters.length - 1;
+            break;
+        
+        case 'quest':
+            index = currentJournalData.Quests.length - 1;
+            break;
+        
+        case 'session':
+            index = currentJournalData.Sessions.length - 1;
+            break;
+    }
+
+    return index;
 }
 
 /** Setup events. */
@@ -408,6 +540,8 @@ function setupEvents() {
     addClickEventToButton('tabCampaigns', showCampaignsTab);
     addClickEventToButton('tabAbout', showAboutTab);
 
+    addClickEventToButton('titleBarColourEdit', showEditColourPopup);
+
     addClickEventToButton('btnAddNew', addButtonClick);
     addClickEventToButton('btnViewAll', showViewAllPopup);
 
@@ -417,7 +551,13 @@ function setupEvents() {
     addClickEventToButton('btnCampaignsExport', showExportPopup);
 
     addClickEventToButton('btnViewSearchQueries', showSearchQueryPopup);
-    addClickEventToButton('btnViewColours', showEditColourPopup);
+    addClickEventToButton('btnVersionHistory', showVersionHistoryPopup);
+
+    addClickEventToButton('btnViewAllAlphabetical', orderViewAllAlphabetically);
+    addClickEventToButton('btnViewAllComplete', reorderQuestsByCompleted);
+    addClickEventToButton('btnViewAllParty', reorderCharactersByParty);
+    addClickEventToButton('btnViewAllDeceased', reorderCharactersByDead);
+    addClickEventToButton('btnViewAllLocation', reorderCharactersByLocation);
 
     addClickEventToButton('btnPopupNewClose', hideNewPopup);
     addClickEventToButton('btnPopupImportClose', hideImportPopup);
@@ -444,6 +584,10 @@ function setupEvents() {
     addClickEventToButton('btnEditHighlightColour', showColourChoicesForHighlight);
     addClickEventToButton('btnRevertColour', revertColoursToDefault);
     addClickEventToButton('btnCloseColourChooser', hideColourChoicesPopup);
+
+    addClickEventToButton('btnCloseUpdated', hideUpdatePopup);
+    
+    addClickEventToButton('btnPopupVersionHistoryClose', hideVersionHistoryPopup);
 
     addOnBlurEventToInput('txtHeader', updateCampaignName);
 

@@ -33,6 +33,9 @@ function setColoursOnElements() {
     document.getElementById('btnEditBackgroundColour').style.background = journalData.CustomColour;
     document.getElementById('btnEditHighlightColour').style.background = journalData.CustomColourHighlighted;
 
+    document.getElementById('titleBarBackgroundColour').style.background = journalData.CustomColourHighlighted;
+    document.getElementById('titleBarForegroundColour').style.background = journalData.CustomColour;
+
     let elements = document.getElementsByClassName('selected');
 
     if (elements.length > 0) {

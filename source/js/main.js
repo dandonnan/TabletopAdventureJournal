@@ -1,6 +1,6 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.61;
+const currentVersion = 0.7;
 
 const defaultColour = '#c53131';
 const defaultColourHighlight = '#731d1d';
@@ -111,6 +111,7 @@ function loadFromStorage() {
         }
         else if (savedData.Version < currentVersion) {
             savedData.Version = currentVersion;
+            showUpdatedPopup();
         }
 
         if (savedData.CustomColour === undefined) {
@@ -487,6 +488,41 @@ function getSearchQueries(searchTerm) {
     }
 
     return queries;
+}
+
+/** Order the contents of the View All popup alphabetically. */
+function orderViewAllAlphabetically() {
+    let reverse = false;
+
+    if (document.getElementById('btnViewAllAlphabetical').innerText === getLocalisedString('FILTER_ALPHABETICAL')) {
+        setElementContent('btnViewAllAlphabetical', getLocalisedString('FILTER_ALPHABETICAL_REVERSE'));
+    }
+    else {
+        reverse = true;
+        setElementContent('btnViewAllAlphabetical', getLocalisedString('FILTER_ALPHABETICAL'));
+    }
+
+    switch (journalData.LastTab) {
+        case 'Quest':
+            reorderQuestsAlphabetically(reverse);
+            break;
+        
+        case 'Character':
+            reorderCharactersAlphabetically(reverse);
+            break;
+        
+        case 'Session':
+            reorderSessionsAlphabetically(reverse);
+            break;
+        
+        case 'Campaign':
+            reorderCampaignsAlphabetically(reverse);
+            break;
+    }
+
+    showViewAllPopup();
+
+    saveToStorage();
 }
 
 // Load the app

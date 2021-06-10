@@ -20,18 +20,24 @@ function localiseStaticHtml() {
 
     localiseInputPlaceholder('txtHeader', 'CAMPAIGN_NAME');
 
-    localiseElement('tabSummary', 'TAB_SUMMARY');
-    localiseElement('tabQuest', 'TAB_QUESTS');
-    localiseElement('tabCharacters', 'TAB_CHARACTERS');
-    localiseElement('tabSessions', 'TAB_SESSIONS');
-    localiseElement('tabCampaigns', 'TAB_CAMPAIGNS');
-    localiseElement('tabAbout', 'TAB_ABOUT');
+    localiseElement('tabSummaryText', 'TAB_SUMMARY');
+    localiseElement('tabQuestText', 'TAB_QUESTS');
+    localiseElement('tabCharactersText', 'TAB_CHARACTERS');
+    localiseElement('tabSessionsText', 'TAB_SESSIONS');
+    localiseElement('tabCampaignsText', 'TAB_CAMPAIGNS');
+    localiseElement('tabAboutText', 'TAB_ABOUT');
 
     localiseInputPlaceholder('txtSearch', 'SEARCH');
 
     localiseElement('btnViewAll', 'BUTTON_VIEW_ALL');
     localiseElement('btnAddNew', 'BUTTON_NEW');
     localiseElement('btnDelete', 'BUTTON_DELETE');
+
+    localiseElement('btnViewAllAlphabetical', 'FILTER_ALPHABETICAL');
+    localiseElement('btnViewAllComplete', 'FILTER_COMPLETE');
+    localiseElement('btnViewAllParty', 'FILTER_PARTY');
+    localiseElement('btnViewAllDeceased', 'FILTER_DEAD');
+    localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
 
     localiseInputPlaceholder('txtSummaryNotes', 'TAB_SUMMARY');
 
@@ -78,7 +84,6 @@ function localiseStaticHtml() {
     localiseElement('btnPopupDeleteCancel', 'BUTTON_CANCEL');
     localiseElement('btnPopupDeleteConfirm', 'BUTTON_DELETE');
 
-    localiseElement('btnViewColours', 'BUTTON_EDIT_COLOURS');
     localiseElement('popupEditColourTitle', 'BUTTON_EDIT_COLOURS');
     localiseElement('colourSelectorBackground', 'COLOUR_BACKGROUND');
     localiseElement('colourSelectorHighlight', 'COLOUR_HIGHLIGHT');
@@ -87,6 +92,14 @@ function localiseStaticHtml() {
     localiseElement('colourChooserPreview', 'COLOUR_PREVIEW');
     localiseElement('btnCloseColourChooser', 'COLOUR_OK');
     localiseInputPlaceholder('txtColourCode', 'COLOUR_ENTER_CODE');
+
+    localiseElement('btnVersionHistory', 'VERSION_LOG');
+
+    localiseElement('popupVersionHistoryTitle', 'VERSION_LOG');
+
+    localiseElement('updatedTitle', 'APP_UPDATED');
+    localiseElement('updatedHaveFun', 'UPDATE_HAPPY_ADVENTURE');
+    localiseElement('btnCloseUpdated', 'BUTTON_OK');
 }
 
 /**
