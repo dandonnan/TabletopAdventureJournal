@@ -35,6 +35,8 @@ function localiseStaticHtml() {
 
     localiseElement('btnViewAllAlphabetical', 'FILTER_ALPHABETICAL');
     localiseElement('btnViewAllComplete', 'FILTER_COMPLETE');
+    localiseElement('btnViewAllInProgress', 'FILTER_IN_PROGRESS');
+    localiseElement('btnViewAllFailed', 'FILTER_FAILED');
     localiseElement('btnViewAllParty', 'FILTER_PARTY');
     localiseElement('btnViewAllDeceased', 'FILTER_DEAD');
     localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
@@ -43,6 +45,8 @@ function localiseStaticHtml() {
 
     localiseInputPlaceholder('txtQuestName', 'QUEST_NAME');
     localiseElement('txtQuestComplete', 'QUEST_COMPLETE');
+    localiseElement('txtQuestInProgress', 'QUEST_IN_PROGRESS');
+    localiseElement('txtQuestFailed', 'QUEST_FAILED');
     localiseInputPlaceholder('txtQuestObjective', 'QUEST_OBJECTIVE');
     localiseInputPlaceholder('txtQuestNotes', 'QUEST_NOTES');
 

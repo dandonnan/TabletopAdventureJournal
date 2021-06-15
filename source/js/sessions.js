@@ -132,6 +132,8 @@ function displayAllSessions() {
  function reorderSessionsAlphabetically(reverseAlphabetical) {
     let sessions = currentJournalData.Sessions;
     
+    let currentSession = currentJournalData.Sessions[currentSessionIndex];
+    
     sessions.sort((a, b) => a.Name.localeCompare(b.Name));
     
     if (reverseAlphabetical === true) {
@@ -139,6 +141,23 @@ function displayAllSessions() {
     }
 
     currentJournalData.Sessions = sessions;
+    
+    getReorderedSessionIndex(currentSession);
+}
+
+/**
+ * Get and set the index of the Session in the reordered list.
+ * @param {object} session - The Session.
+ */
+function getReorderedSessionIndex(session) {
+    if (session !== undefined) {
+        for (let i = 0; i < currentJournalData.Sessions.length; i++) {
+            if (currentJournalData.Sessions[i].Uid === session.Uid) {
+                currentSessionIndex = i;
+                break;
+            }
+        }
+    }
 }
 
 /**
@@ -180,7 +199,7 @@ function loadSession(clickEvent) {
     }
 
     currentSessionIndex = index;
-    currentJournalData.LastSession = index;
+    currentJournalData.LastSession = uid;
 
     hideElement('popupViewAll');
     showSessionTab();
@@ -192,6 +211,8 @@ function loadSession(clickEvent) {
  */
  function moveSessionUp(clickEvent) {
     let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
+     
+    let currentSession = currentJournalData.Sessions[currentSessionIndex];
 
     let session = currentJournalData.Sessions[index];
     currentJournalData.Sessions.splice(index, 1);
@@ -199,6 +220,8 @@ function loadSession(clickEvent) {
 
     showViewAllPopup();
     saveToStorage();
+    
+    getReorderedSessionIndex(currentSession);
 }
 
 /**
@@ -208,12 +231,16 @@ function loadSession(clickEvent) {
 function moveSessionDown(clickEvent) {
     let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
 
+    let currentSession = currentJournalData.Sessions[currentSessionIndex];
+
     let session = currentJournalData.Sessions[index];
     currentJournalData.Sessions.splice(index, 1);
     currentJournalData.Sessions.splice(index + 1, 0, session);
 
     showViewAllPopup();
     saveToStorage();
+
+    getReorderedSessionIndex(currentSession);
 }
 
 /**
