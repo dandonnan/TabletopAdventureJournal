@@ -168,6 +168,8 @@ function displayAllCharacters() {
  function reorderCharactersAlphabetically(reverseAlphabetical) {
     let characters = currentJournalData.Characters;
     
+    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
+    
     characters.sort((a, b) => a.Name.localeCompare(b.Name));
     
     if (reverseAlphabetical === true) {
@@ -175,12 +177,16 @@ function displayAllCharacters() {
     }
 
     currentJournalData.Characters = characters;
+    
+    getReorderedCharacterIndex(currentCharacter);
 }
 
 /** Reorder Characters based on if they are a party member. */
 function reorderCharactersByParty() {
     let showNonParty = false;
     let characters = currentJournalData.Characters;
+
+    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
 
     if (document.getElementById('btnViewAllParty').innerText === getLocalisedString('FILTER_PARTY')) {
         localiseElement('btnViewAllParty', 'FILTER_NON_PARTY');
@@ -201,12 +207,16 @@ function reorderCharactersByParty() {
     showViewAllPopup();
 
     saveToStorage();
+
+    getReorderedCharacterIndex(currentCharacter);
 }
 
 /** Reorder Characters based on if they are dead. */
 function reorderCharactersByDead() {
     let showAlive = false;
     let characters = currentJournalData.Characters;
+
+    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
 
     if (document.getElementById('btnViewAllDeceased').innerText === getLocalisedString('FILTER_DEAD')) {
         localiseElement('btnViewAllDeceased', 'FILTER_ALIVE');
@@ -227,12 +237,16 @@ function reorderCharactersByDead() {
     showViewAllPopup();
 
     saveToStorage();
+
+    getReorderedCharacterIndex(currentCharacter);
 }
 
 /** Reorder Characters based on their location. */
 function reorderCharactersByLocation() {
     let reverse = false;
     let characters = currentJournalData.Characters;
+
+    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
 
     if (document.getElementById('btnViewAllLocation').innerText === getLocalisedString('FILTER_LOCATION_ALPHABETICAL')) {
         localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL_REVERSE');
@@ -253,6 +267,23 @@ function reorderCharactersByLocation() {
     showViewAllPopup();
 
     saveToStorage();
+
+    getReorderedCharacterIndex(currentCharacter);
+}
+
+/**
+ * Get and set the index of the Character in the reordered list.
+ * @param {object} character - The Character.
+ */
+function getReorderedCharacterIndex(character) {
+    if (character !== undefined) {
+        for (let i = 0; i < currentJournalData.Characters.length; i++) {
+            if (currentJournalData.Characters[i].Uid === character.Uid) {
+                currentCharacterIndex = i;
+                break;
+            }
+        }
+    }
 }
 
 /**
@@ -266,11 +297,11 @@ function getHtmlForCharacterSearchResult(character, index) {
     let party = '';
 
     if (character.Deceased === true) {
-        dead = '<div class="searchTag searchTagCharacterDead">' + getLocalisedString('CHARACTER_DECEASED') + '</div> '
+        dead = '<div class="searchTag searchTagRed">' + getLocalisedString('CHARACTER_DECEASED') + '</div> ';
     }
 
     if (character.PartyMember === true) {
-        party = '<div class="searchTag searchTagCharacterParty">' + getLocalisedString('CHARACTER_PARTY') + '</div> '
+        party = '<div class="searchTag searchTagBlue">' + getLocalisedString('CHARACTER_PARTY') + '</div> ';
     }
 
     return getHtmlForSearchResult('character', character.Uid, character.Name, party + dead + '<div class="searchExtraDetail">' + character.LastLocation + '</div>', index);
@@ -305,7 +336,7 @@ function loadCharacter(clickEvent) {
     }
 
     currentCharacterIndex = index;
-    currentJournalData.LastCharacter = index;
+    currentJournalData.LastCharacter = uid;
 
     hideElement('popupViewAll');
     showCharacterTab();
@@ -318,12 +349,16 @@ function loadCharacter(clickEvent) {
 function moveCharacterUp(clickEvent) {
     let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
 
+    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
+
     let character = currentJournalData.Characters[index];
     currentJournalData.Characters.splice(index, 1);
     currentJournalData.Characters.splice(index - 1, 0, character);
 
     showViewAllPopup();
     saveToStorage();
+
+    getReorderedCharacterIndex(currentCharacter);
 }
 
 /**
@@ -333,12 +368,16 @@ function moveCharacterUp(clickEvent) {
 function moveCharacterDown(clickEvent) {
     let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
 
+    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
+
     let character = currentJournalData.Characters[index];
     currentJournalData.Characters.splice(index, 1);
     currentJournalData.Characters.splice(index + 1, 0, character);
 
     showViewAllPopup();
     saveToStorage();
+
+    getReorderedCharacterIndex(currentCharacter);
 }
 
 /**

@@ -134,11 +134,21 @@ function importCampaigns(campaigns) {
                 for (let j = 0; j < campaigns[i].Quests.length; j++){
                     if (campaigns[i].Quests[j].Name !== undefined && campaigns[i].Quests[j].Name !== null) {
                         let completed = false;
+                        let inProgress = false;
+                        let failed = false;
                         let objective = '';
                         let notes = '';
 
                         if (campaigns[i].Quests[j].Completed !== undefined && campaigns[i].Quests[j].Completed !== null) {
                             completed = campaigns[i].Quests[j].Completed;
+                        }
+
+                        if (campaigns[i].Quests[j].InProgress !== undefined && campaigns[i].Quests[j].InProgress !== null) {
+                            inProgress = campaigns[i].Quests[j].InProgress;
+                        }
+
+                        if (campaigns[i].Quests[j].Failed !== undefined && campaigns[i].Quests[j].Failed !== null) {
+                            failed = campaigns[i].Quests[j].Failed;
                         }
 
                         if (campaigns[i].Quests[j].Objective !== undefined && campaigns[i].Quests[j].Objective !== null) {
@@ -153,6 +163,8 @@ function importCampaigns(campaigns) {
                             "Uid": j + 1,
                             "Name": campaigns[i].Quests[j].Name,
                             "Completed": completed,
+                            "InProgress": inProgress,
+                            "Failed": failed,
                             "Objective": objective,
                             "Notes": notes
                         });

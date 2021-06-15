@@ -282,29 +282,29 @@ body{
     color: white;
 }
 
-.searchTagQuestComplete {
+.searchTagGreen {
     background: darkseagreen;
 }
 
-.searchWrapper:hover > .searchTagQuestComplete{
+.searchWrapper:hover > .searchTagGreen{
     background: darkolivegreen;
     transition: background 0.1s;
 }
 
-.searchTagCharacterParty{
+.searchTagBlue{
     background: cornflowerblue;
 }
 
-.searchWrapper:hover > .searchTagCharacterParty{
+.searchWrapper:hover > .searchTagBlue{
     background: darkcyan;
     transition: background 0.1s;
 }
 
-.searchTagCharacterDead{
+.searchTagRed{
     background: indianred;
 }
 
-.searchWrapper:hover > .searchTagCharacterDead{
+.searchWrapper:hover > .searchTagRed{
     background: darkred;
     transition: background 0.1s;
 }
@@ -385,6 +385,10 @@ body{
     position: relative;
     display: inline-block;
     cursor: pointer;
+}
+
+.colourSelector:hover{
+    opacity: 0.75;
 }
 
 .colourSelectorPreview{

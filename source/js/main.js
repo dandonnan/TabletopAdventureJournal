@@ -1,6 +1,6 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.7;
+const currentVersion = 0.71;
 
 const defaultColour = '#c53131';
 const defaultColourHighlight = '#731d1d';
@@ -40,13 +40,37 @@ function setFromLastAppState() {
         journalData.LastCampaign = 0;
     }
 
-    currentJournalData = loadCampaignFromStorage(journalData.Campaigns[journalData.LastCampaign]);
+    for (let i = 0; i < journalData.Campaigns.length; i++){
+        let campaign = loadCampaignFromStorage(journalData.Campaigns[i]);
 
-    currentCampaignIndex = journalData.LastCampaign;
-    
-    currentCharacterIndex = currentJournalData.LastCharacter;
-    currentQuestIndex = currentJournalData.LastQuest;
-    currentSessionIndex = currentJournalData.LastSession;
+        if (campaign.Uid === journalData.LastCampaign) {
+            currentCampaignIndex = i;
+            break;
+        }
+    }
+
+    currentJournalData = loadCampaignFromStorage(journalData.Campaigns[currentCampaignIndex]);
+
+    for (let i = 0; i < currentJournalData.Characters.length; i++){
+        if (currentJournalData.Characters[i].Uid === currentJournalData.LastCharacter) {
+            currentCharacterIndex = i;
+            break;
+        }
+    }
+
+    for (let i = 0; i < currentJournalData.Quests.length; i++){
+        if (currentJournalData.Quests[i].Uid === currentJournalData.LastQuest) {
+            currentQuestIndex = i;
+            break;
+        }
+    }
+
+    for (let i = 0; i < currentJournalData.Sessions.length; i++){
+        if (currentJournalData.Sessions[i].Uid === currentJournalData.LastSession) {
+            currentSessionIndex = i;
+            break;
+        }
+    }
 
     showElement('journal');
     setTextOnInput('txtHeader', currentJournalData.Name);
@@ -110,6 +134,11 @@ function loadFromStorage() {
             savedData = upgradeDataFromSingleToSplitFiles(savedData);
         }
         else if (savedData.Version < currentVersion) {
+            if (savedData.Version < 0.71) {
+                savedData.LastCampaign = -1;
+                upgradeQuestsWithInProgressAndFailedStates(savedData);
+            }
+
             savedData.Version = currentVersion;
             showUpdatedPopup();
         }
@@ -188,7 +217,26 @@ function upgradeDataFromSingleToSplitFiles(data) {
     data.Campaigns = campaignNames;
     data.Version = currentVersion;
 
+    upgradeQuestsWithInProgressAndFailedStates(data);
+
     return data;
+}
+
+/**
+ * Upgrade data so Quests have In Progress and Failed states.
+ * @param {object} savedData - The data.
+ */
+function upgradeQuestsWithInProgressAndFailedStates(savedData) {
+    for (let i = 0; i < savedData.Campaigns.length; i++){
+        let campaign = loadCampaignFromStorage(savedData.Campaigns[i]);
+
+        for (let j = 0; j < campaign.Quests.length; j++){
+            campaign.Quests[j].InProgress = false;
+            campaign.Quests[j].Failed = false;
+        }
+
+        saveCampaignToStorage(campaign.Filename, campaign);
+    }
 }
 
 /**

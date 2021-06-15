@@ -69,7 +69,10 @@
 
                 <div id="journalQuest" class="card hidden">
                     <input id="txtQuestName" type="text" placeholder="Quest Name" class="inputBox title"></input><br>
-                    <input id="chkQuestComplete" type="checkbox"></input><div id="txtQuestComplete" class="checkboxLabel">Complete</div><br>
+                    <input id="chkQuestComplete" type="checkbox"></input><div id="txtQuestComplete" class="checkboxLabel">Complete</div>
+                    <input id="chkQuestInProgress" type="checkbox"></input><div id="txtQuestInProgress" class="checkboxLabel">In Progress</div>
+                    <input id="chkQuestFailed" type="checkbox"></input><div id="txtQuestFailed" class="checkboxLabel">Failed</div>
+                    <br>
                     <input id="txtQuestObjective" type="text" placeholder="Objective" class="inputBox objectiveBox"></input><br>
                     <textarea id="txtQuestNotes" placeholder="Quest Notes" class="inputBox notes"></textarea>
                 </div>
@@ -179,6 +182,8 @@
                     <br>
                     <button id="btnViewAllAlphabetical" class="baseButton" type="button">A-Z</button>
                     <button id="btnViewAllComplete" class="baseButton" type="button">Complete</button>
+                    <button id="btnViewAllInProgress" class="baseButton" type="button">In Progress</button>
+                    <button id="btnViewAllFailed" class="baseButton" type="button">Failed</button>
                     <button id="btnViewAllParty" class="baseButton" type="button">Party</button>
                     <button id="btnViewAllDeceased" class="baseButton" type="button">Deceased</button>
                     <button id="btnViewAllLocation" class="baseButton" type="button">Location A-Z</button>
@@ -208,7 +213,9 @@
 
                         <b>Quests</b><br>
                         &complete&nbsp;&nbsp; - Filter by completed quests<br>
-                        &incomplete&nbsp;&nbsp; - Filter by incomplete quests<br><br>
+                        &incomplete&nbsp;&nbsp; - Filter by incomplete quests<br>
+                        &failed&nbsp;&nbsp; - Filter by failed quests<br>
+                        &inprogress&nbsp;&nbsp; - Filter by in progress quests<br><br>
 
                         <b>Characters</b><br>
                         &party&nbsp;&nbsp; - Filter by characters in the party<br>

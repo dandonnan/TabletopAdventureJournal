@@ -121,6 +121,8 @@ function getQuestsToExport(quests) {
         exportQuests.push({
             "Name": quests[i].Name,
             "Completed": quests[i].Completed,
+            "InProgress": quests[i].InProgress,
+            "Failed": quests[i].Failed,
             "Notes": quests[i].Notes,
             "Objective": quests[i].Objective
         });
@@ -194,8 +196,20 @@ function parseCampaignDataIntoText(campaignData) {
             text += 'Quests\n' + lineSplit + '\n';
 
             for (let j = 0; j < campaignData[i].Quests.length; j++){
-                text += 'Name: ' + campaignData[i].Quests[j].Name + '\nComplete: ' + campaignData[i].Quests[j].Completed + '\nObjective: ' +
-                    campaignData[i].Quests[j].Objective + '\nNotes: ' + campaignData[i].Quests[j].Notes + '\n\n\n';
+                let status = '';
+
+                if (campaignData[i].Quests[j].InProgress === true) {
+                    status = '\nIn Progress: ' + campaignData[i].Quests[j].InProgress;
+                }
+                else if (campaignData[i].Quests[j].Failed === true) {
+                    status = '\nFailed: ' + campaignData[i].Quests[j].Failed;
+                }
+                else {
+                    status = '\nComplete: ' + campaignData[i].Quests[j].Completed;
+                }
+
+                text += 'Name: ' + campaignData[i].Quests[j].Name + status + 
+                    '\nObjective: ' + campaignData[i].Quests[j].Objective + '\nNotes: ' + campaignData[i].Quests[j].Notes + '\n\n\n';
             }
 
             text += '\n\n';

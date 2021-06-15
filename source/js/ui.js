@@ -260,6 +260,8 @@ function showViewAllPopup() {
     showElement('popupViewAll');
     showElement('btnViewAllAlphabetical');
     hideElement('btnViewAllComplete');
+    hideElement('btnViewAllInProgress');
+    hideElement('btnViewAllFailed');
     hideElement('btnViewAllParty');
     hideElement('btnViewAllDeceased');
     hideElement('btnViewAllLocation');
@@ -268,6 +270,8 @@ function showViewAllPopup() {
         case 'Quest':
             displayAllQuests();
             showElement('btnViewAllComplete');
+            showElement('btnViewAllInProgress');
+            showElement('btnViewAllFailed');
             title = getLocalisedString('TAB_QUESTS');
             break;
         
@@ -402,7 +406,7 @@ function hideSearchQueryPopup() {
 function showUpdatedPopup() {
     showElement('popupUpdate');
 
-    let latestVersion = getLocalisedString('VERSION_LOG_v0_7');
+    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_1');
 
     latestVersion = latestVersion.substr(latestVersion.indexOf('\n') + 1);
 
@@ -421,6 +425,7 @@ function hideUpdatePopup() {
 /** Show the version history popup. */
 function showVersionHistoryPopup() {
     let history = [
+        'VERSION_LOG_v0_7_1',
         'VERSION_LOG_v0_7',
         'VERSION_LOG_v0_6_1',
         'VERSION_LOG_v0_6',
@@ -553,8 +558,14 @@ function setupEvents() {
     addClickEventToButton('btnViewSearchQueries', showSearchQueryPopup);
     addClickEventToButton('btnVersionHistory', showVersionHistoryPopup);
 
+    addClickEventToButton('chkQuestComplete', updateQuestFromCheckbox);
+    addClickEventToButton('chkQuestInProgress', updateQuestFromCheckbox);
+    addClickEventToButton('chkQuestFailed', updateQuestFromCheckbox);
+
     addClickEventToButton('btnViewAllAlphabetical', orderViewAllAlphabetically);
     addClickEventToButton('btnViewAllComplete', reorderQuestsByCompleted);
+    addClickEventToButton('btnViewAllInProgress', reorderQuestsByInProgress);
+    addClickEventToButton('btnViewAllFailed', reorderQuestsByFailed);
     addClickEventToButton('btnViewAllParty', reorderCharactersByParty);
     addClickEventToButton('btnViewAllDeceased', reorderCharactersByDead);
     addClickEventToButton('btnViewAllLocation', reorderCharactersByLocation);
@@ -594,7 +605,6 @@ function setupEvents() {
     addOnBlurEventToInput('txtSummaryNotes', updateSummary);
 
     addOnBlurEventToInput('txtQuestName', updateQuest);
-    addOnBlurEventToInput('chkQuestComplete', updateQuest);
     addOnBlurEventToInput('txtQuestObjective', updateQuest);
     addOnBlurEventToInput('txtQuestNotes', updateQuest);
 

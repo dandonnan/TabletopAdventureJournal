@@ -151,15 +151,32 @@ function displayAllCampaigns() {
  * @param {boolean} reverseAlphabetical - Whether to order the list in reverse.
  */
  function reorderCampaignsAlphabetically(reverseAlphabetical) {
-    let campaigns = currentJournalData.Campaigns;
+    let campaigns = journalData.Campaigns;
     
-    campaigns.sort((a, b) => a.Name.localeCompare(b.Name));
+    let currentCampaignName = journalData.Campaigns[currentCampaignIndex];
+    
+    campaigns.sort((a, b) => a.localeCompare(b));
     
     if (reverseAlphabetical === true) {
         campaigns.reverse();
     }
 
-    currentJournalData.Campaigns = campaigns;
+    journalData.Campaigns = campaigns;
+    
+    getReorderedCampaignIndex(currentCampaignName);
+}
+
+/**
+ * Get and set the index of the Campaign in the reordered list.
+ * @param {object} campaignName - The Campaign file name.
+ */
+ function getReorderedCampaignIndex(campaignName) {
+    for (let i = 0; i < journalData.Campaigns.length; i++){
+        if (journalData.Campaigns[i] === campaignName) {
+            currentCampaignIndex = i;
+            break;
+        }
+    }
 }
 
 /**
@@ -207,9 +224,10 @@ function loadCampaign(clickEvent) {
     }
 
     currentCampaignIndex = index;
-    journalData.LastCampaign = index;
 
     currentJournalData = loadCampaignFromStorage(journalData.Campaigns[currentCampaignIndex]);
+
+    journalData.LastCampaign = currentJournalData.Uid;
 
     setTextOnInput('txtHeader', currentJournalData.Name);
 
@@ -234,6 +252,8 @@ function loadCampaign(clickEvent) {
  */
  function moveCampaignUp(clickEvent) {
     let index = parseInt(clickEvent.target.id.replace('moveUp', ''));
+    
+    let currentCampaignName = journalData.Campaigns[currentCampaignIndex];
 
     let campaign = journalData.Campaigns[index];
     journalData.Campaigns.splice(index, 1);
@@ -241,6 +261,8 @@ function loadCampaign(clickEvent) {
 
     showViewAllPopup();
     saveToStorage();
+    
+    getReorderedCampaignIndex(currentCampaignName);
 }
 
 /**
@@ -250,12 +272,16 @@ function loadCampaign(clickEvent) {
 function moveCampaignDown(clickEvent) {
     let index = parseInt(clickEvent.target.id.replace('moveDown', ''));
 
+    let currentCampaignName = journalData.Campaigns[currentCampaignIndex];
+
     let campaign = journalData.Campaigns[index];
     journalData.Campaigns.splice(index, 1);
     journalData.Campaigns.splice(index + 1, 0, campaign);
 
     showViewAllPopup();
     saveToStorage();
+
+    getReorderedCampaignIndex(currentCampaignName);
 }
 
 /**

@@ -128,6 +128,12 @@
     "QUEST_COMPLETE": {
         "message": "Complete"
     },
+    "QUEST_IN_PROGRESS": {
+        "message": "In Progress"
+    },
+    "QUEST_FAILED": {
+        "message": "Failed"
+    },
     "QUEST_NONE": {
         "message": "You haven't set up any Quests."
     },
@@ -261,6 +267,9 @@
     "VERSION_LOG_v0_7": {
         "message": "v0.7 - UX Improvements\n - Added menu icons\n - Moved color edit option from the About tab to the main page\n - Color coded tags when searching or viewing Characters and Quests\n - Added ability to move data up and down on the View All popup\n - Added ability to sort data on the View All popup\n - Fixed a bug where Campaign search wouldn't return any results\n - Fixed a bug where Search Query information did not display correctly on Firefox"
     },
+    "VERSION_LOG_v0_7_1": {
+        "message": "v0.7.1 - Quest Tags & Bug Fixes\n - Added In Progress and Failed states for Quests\n - Fixed a bug where reordering data in View All could result in data being overwritten\n - Fixed bug where reordering Campaigns didn't work"
+    },
     "FILTER_ALPHABETICAL": {
         "message": "A-Z"
     },
@@ -272,6 +281,12 @@
     },
     "FILTER_INCOMPLETE": {
         "message": "Incomplete"
+    },
+    "FILTER_IN_PROGRESS": {
+        "message": "In Progress"
+    },
+    "FILTER_FAILED": {
+        "message": "Failed"
     },
     "FILTER_PARTY": {
         "message": "In Party"
