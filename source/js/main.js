@@ -1,6 +1,6 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.71;
+const currentVersion = 0.72;
 
 const defaultColour = '#c53131';
 const defaultColourHighlight = '#731d1d';
@@ -51,24 +51,42 @@ function setFromLastAppState() {
 
     currentJournalData = loadCampaignFromStorage(journalData.Campaigns[currentCampaignIndex]);
 
-    for (let i = 0; i < currentJournalData.Characters.length; i++){
-        if (currentJournalData.Characters[i].Uid === currentJournalData.LastCharacter) {
-            currentCharacterIndex = i;
-            break;
-        }
-    }
+    if (currentJournalData !== null) {
 
-    for (let i = 0; i < currentJournalData.Quests.length; i++){
-        if (currentJournalData.Quests[i].Uid === currentJournalData.LastQuest) {
-            currentQuestIndex = i;
-            break;
+        if (currentJournalData.Characters !== null) {
+            for (let i = 0; i < currentJournalData.Characters.length; i++) {
+                if (currentJournalData.Characters[i].Uid === currentJournalData.LastCharacter) {
+                    currentCharacterIndex = i;
+                    break;
+                }
+            }
         }
-    }
+        else {
+            currentJournalData.LastCharacter = -1;
+        }
 
-    for (let i = 0; i < currentJournalData.Sessions.length; i++){
-        if (currentJournalData.Sessions[i].Uid === currentJournalData.LastSession) {
-            currentSessionIndex = i;
-            break;
+        if (currentJournalData.Quests !== null) {
+            for (let i = 0; i < currentJournalData.Quests.length; i++) {
+                if (currentJournalData.Quests[i].Uid === currentJournalData.LastQuest) {
+                    currentQuestIndex = i;
+                    break;
+                }
+            }
+        }
+        else {
+            currentJournalData.LastQuest = -1;
+        }
+
+        if (currentJournalData.Sessions !== null) {
+            for (let i = 0; i < currentJournalData.Sessions.length; i++) {
+                if (currentJournalData.Sessions[i].Uid === currentJournalData.LastSession) {
+                    currentSessionIndex = i;
+                    break;
+                }
+            }
+        }
+        else {
+            currentJournalData.LastSession = -1;
         }
     }
 

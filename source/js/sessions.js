@@ -110,7 +110,7 @@ function displayAllSessions() {
 
     let sessions = currentJournalData.Sessions;
 
-    if (sessions.length <= 0) {
+    if (sessions === null || sessions.length <= 0) {
         html = getLocalisedString('SESSION_NONE');
         hideElement('btnViewAllAlphabetical');
     }
@@ -174,11 +174,13 @@ function getHtmlForSessionSearchResult(session, index) {
  * Adds click events to Session search results.
  * @param {object} sessions - A list of Sessions.
  */
- function addClickEventToSessionSearchResults(sessions) {
-    for (let i = 0; i < sessions.length; i++){
-        addClickEventToButton('session' + sessions[i].Uid, loadSession);
-        addClickEventToButton('moveUp' + i, moveSessionUp);
-        addClickEventToButton('moveDown' + i, moveSessionDown);
+function addClickEventToSessionSearchResults(sessions) {
+    if (sessions !== null) {
+        for (let i = 0; i < sessions.length; i++) {
+            addClickEventToButton('session' + sessions[i].Uid, loadSession);
+            addClickEventToButton('moveUp' + i, moveSessionUp);
+            addClickEventToButton('moveDown' + i, moveSessionDown);
+        }
     }
 }
 
@@ -256,11 +258,14 @@ function moveSessionDown(clickEvent) {
     searchTerm = searchTerm.toLowerCase();
 
     let sessions = currentJournalData.Sessions;
+    
+    if (sessions !== null){
 
     for (let i = 0; i < sessions.length; i++){
         if (sessions[i].Name.toLowerCase().indexOf(searchTerm) > -1
             || sessions[i].Notes.toLowerCase().indexOf(searchTerm) > -1) {
                 matchingSessions.push(sessions[i]);
+        }
         }
     }
 

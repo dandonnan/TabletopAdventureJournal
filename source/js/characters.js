@@ -146,9 +146,12 @@ function displayAllCharacters() {
 
     let characters = currentJournalData.Characters;
 
-    if (characters.length <= 0) {
+    if (characters === null || characters.length <= 0) {
         html = getLocalisedString('CHARACTER_NONE');
         hideElement('btnViewAllAlphabetical');
+        hideElement('btnViewAllParty');
+        hideElement('btnViewAllDeceased');
+        hideElement('btnViewAllLocation');
     }
     else {
         for (let i = 0; i < characters.length; i++) {
@@ -312,11 +315,13 @@ function getHtmlForCharacterSearchResult(character, index) {
  * @param {object} characters - A list of Characters.
  */
  function addClickEventToCharacterSearchResults(characters) {
-    for (let i = 0; i < characters.length; i++){
-        addClickEventToButton('character' + characters[i].Uid, loadCharacter);
-        addClickEventToButton('moveUp' + i, moveCharacterUp);
-        addClickEventToButton('moveDown' + i, moveCharacterDown);
-    }
+     if (characters !== null) {
+         for (let i = 0; i < characters.length; i++) {
+             addClickEventToButton('character' + characters[i].Uid, loadCharacter);
+             addClickEventToButton('moveUp' + i, moveCharacterUp);
+             addClickEventToButton('moveDown' + i, moveCharacterDown);
+         }
+     }
 }
 
 /**
@@ -420,23 +425,26 @@ function moveCharacterDown(clickEvent) {
     searchTerm = getSearchTermWithoutQuery(searchTerm).toLowerCase();
 
     let characters = currentJournalData.Characters;
+    
+     if (characters !== null) {
 
-    for (let i = 0; i < characters.length; i++){
-        if (characters[i].Name.toLowerCase().indexOf(searchTerm) > -1
-            || characters[i].LastLocation.toLowerCase().indexOf(searchTerm) > -1
-            || characters[i].Job.toLowerCase().indexOf(searchTerm) > -1
-            || characters[i].Notes.toLowerCase().indexOf(searchTerm) > -1) {
+         for (let i = 0; i < characters.length; i++) {
+             if (characters[i].Name.toLowerCase().indexOf(searchTerm) > -1
+                 || characters[i].LastLocation.toLowerCase().indexOf(searchTerm) > -1
+                 || characters[i].Job.toLowerCase().indexOf(searchTerm) > -1
+                 || characters[i].Notes.toLowerCase().indexOf(searchTerm) > -1) {
             
-            if ((restrictToParty === true && characters[i].PartyMember === true)
-                || (restrictToNonParty === true && characters[i].PartyMember === false)
-                || (restrictToDead === true && characters[i].Deceased === true)
-                || (restrictToAlive === true && characters[i].Deceased === false)
-                || (restrictToParty === false && restrictToNonParty === false &&
-                    restrictToDead === false && restrictToAlive === false)) {
-                matchingCharacters.push(characters[i]);
-            }
-        }
-    }
+                 if ((restrictToParty === true && characters[i].PartyMember === true)
+                     || (restrictToNonParty === true && characters[i].PartyMember === false)
+                     || (restrictToDead === true && characters[i].Deceased === true)
+                     || (restrictToAlive === true && characters[i].Deceased === false)
+                     || (restrictToParty === false && restrictToNonParty === false &&
+                         restrictToDead === false && restrictToAlive === false)) {
+                     matchingCharacters.push(characters[i]);
+                 }
+             }
+         }
+     }
 
     if (matchingCharacters.length <= 0) {
         showElement('searchNoResults');
