@@ -268,18 +268,18 @@ function showViewAllPopup() {
 
     switch (journalData.LastTab) {
         case 'Quest':
-            displayAllQuests();
             showElement('btnViewAllComplete');
             showElement('btnViewAllInProgress');
             showElement('btnViewAllFailed');
+            displayAllQuests();
             title = getLocalisedString('TAB_QUESTS');
             break;
         
         case 'Character':
-            displayAllCharacters();
             showElement('btnViewAllParty');
             showElement('btnViewAllDeceased');
             showElement('btnViewAllLocation');
+            displayAllCharacters();
             title = getLocalisedString('TAB_CHARACTERS');
             break;
         
@@ -406,7 +406,7 @@ function hideSearchQueryPopup() {
 function showUpdatedPopup() {
     showElement('popupUpdate');
 
-    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_1');
+    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_2');
 
     latestVersion = latestVersion.substr(latestVersion.indexOf('\n') + 1);
 
@@ -425,6 +425,7 @@ function hideUpdatePopup() {
 /** Show the version history popup. */
 function showVersionHistoryPopup() {
     let history = [
+        'VERSION_LOG_v0_7_2',
         'VERSION_LOG_v0_7_1',
         'VERSION_LOG_v0_7',
         'VERSION_LOG_v0_6_1',

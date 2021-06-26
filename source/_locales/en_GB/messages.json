@@ -270,6 +270,9 @@
     "VERSION_LOG_v0_7_1": {
         "message": "v0.7.1 - Quest Tags & Bug Fixes\n - Added In Progress and Failed states for Quests\n - Fixed a bug where reordering data in View All could result in data being overwritten\n - Fixed bug where reordering Campaigns didn't work"
     },
+    "VERSION_LOG_v0_7_2":{
+        "message": "v0.7.2 - Bug Fixes\n - Fixed a bug where it wasn't possible to dismiss the What's New popup\n - Fixed a bug where searching didn't work if there was no data"
+    },
     "FILTER_ALPHABETICAL": {
         "message": "A-Z"
     },

@@ -176,9 +176,12 @@ function displayAllQuests() {
 
     let quests = currentJournalData.Quests;
 
-    if (quests.length <= 0) {
+    if (quests === null || quests.length <= 0) {
         html = getLocalisedString('QUEST_NONE');
         hideElement('btnViewAllAlphabetical');
+        hideElement('btnViewAllComplete');
+        hideElement('btnViewAllInProgress');
+        hideElement('btnViewAllFailed');
     }
     else {
         for (let i = 0; i < quests.length; i++) {
@@ -319,10 +322,12 @@ function getHtmlForQuestSearchResult(quest, index) {
  * @param {object} quests - A list of Quests.
  */
 function addClickEventToQuestSearchResults(quests) {
-    for (let i = 0; i < quests.length; i++){
-        addClickEventToButton('quest' + quests[i].Uid, loadQuest);
-        addClickEventToButton('moveUp' + i, moveQuestUp);
-        addClickEventToButton('moveDown' + i, moveQuestDown);
+    if (quests !== null) {
+        for (let i = 0; i < quests.length; i++) {
+            addClickEventToButton('quest' + quests[i].Uid, loadQuest);
+            addClickEventToButton('moveUp' + i, moveQuestUp);
+            addClickEventToButton('moveDown' + i, moveQuestDown);
+        }
     }
 }
 
@@ -435,16 +440,18 @@ function searchQuests(searchTerm) {
 
     let quests = currentJournalData.Quests;
 
-    for (let i = 0; i < quests.length; i++){
-        if (quests[i].Name.toLowerCase().indexOf(searchTerm) > -1
-            || quests[i].Objective.toLowerCase().indexOf(searchTerm) > -1
-            || quests[i].Notes.toLowerCase().indexOf(searchTerm) > -1) {
-            if ((restrictToComplete === true && quests[i].Completed === true)
-                || (restrictToIncomplete === true && quests[i].Completed === false && quests[i].Failed == false)
-                || (restrictToInProgress === true && quests[i].InProgress === true)
-                || (restrictToFailed === true && quests[i].Failed === true)
-                || (restrictToComplete === false && restrictToIncomplete === false && restrictToInProgress === false && restrictToFailed === false)) {
-                matchingQuests.push(quests[i]);
+    if (quests !== null) {
+        for (let i = 0; i < quests.length; i++) {
+            if (quests[i].Name.toLowerCase().indexOf(searchTerm) > -1
+                || quests[i].Objective.toLowerCase().indexOf(searchTerm) > -1
+                || quests[i].Notes.toLowerCase().indexOf(searchTerm) > -1) {
+                if ((restrictToComplete === true && quests[i].Completed === true)
+                    || (restrictToIncomplete === true && quests[i].Completed === false && quests[i].Failed == false)
+                    || (restrictToInProgress === true && quests[i].InProgress === true)
+                    || (restrictToFailed === true && quests[i].Failed === true)
+                    || (restrictToComplete === false && restrictToIncomplete === false && restrictToInProgress === false && restrictToFailed === false)) {
+                    matchingQuests.push(quests[i]);
+                }
             }
         }
     }

@@ -297,14 +297,17 @@ function moveCampaignDown(clickEvent) {
     searchTerm = searchTerm.toLowerCase();
 
     let campaigns = journalData.Campaigns;
+    
+     if (campaigns !== null) {
 
-    for (let i = 0; i < campaigns.length; i++){
-        let campaign = loadCampaignFromStorage(campaigns[i]);
+         for (let i = 0; i < campaigns.length; i++) {
+             let campaign = loadCampaignFromStorage(campaigns[i]);
 
-        if (campaign.Name.toLowerCase().indexOf(searchTerm) > -1) {
-            matchingCampaigns.push(campaign);
-        }
-    }
+             if (campaign.Name.toLowerCase().indexOf(searchTerm) > -1) {
+                 matchingCampaigns.push(campaign);
+             }
+         }
+     }
 
     if (matchingCampaigns.length <= 0) {
         showElement('searchNoResults');
