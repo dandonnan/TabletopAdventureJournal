@@ -1,6 +1,6 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.72;
+const currentVersion = 0.721;
 
 const defaultColour = '#c53131';
 const defaultColourHighlight = '#731d1d';
@@ -50,6 +50,18 @@ function setFromLastAppState() {
     }
 
     currentJournalData = loadCampaignFromStorage(journalData.Campaigns[currentCampaignIndex]);
+
+    currentJournalData = null;
+
+    if (currentJournalData === null) {
+        if (journalData.Campaigns.length > 0) {
+            currentJournalData = loadCampaignFromStorage(journalData.Campaigns[0]);
+
+            if (currentJournalData !== null) {
+                journalData.LastCampaign = currentJournalData.Uid;
+            }
+        }
+    }
 
     if (currentJournalData !== null) {
 
