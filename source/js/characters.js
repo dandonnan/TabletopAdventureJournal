@@ -1,18 +1,35 @@
-/** Show the Character tab. */
-function showCharacterTab() {
+/**
+ * Show the Character tab.
+ * @param {MouseEvent} clickEvent - The event that opened the tab.
+ */
+function showCharacterTab(clickEvent) {
     hideAllJournalCards();
     deselectAllTabs();
     clearSearchText();
 
+    journalData.LastTab = "Character";
+
     if (currentCharacterIndex > -1) {
         showElement('journalCharacter');
         setCharacter();
+
+        if (clickEvent !== undefined) {
+            if ((journalData.AlwaysViewAll === true && clickEvent.shiftKey === false) ||
+                (journalData.AlwaysViewAll === false && clickEvent.shiftKey === true)) {
+                showViewAllPopup();
+            }
+        }
+        else if (journalData.AlwaysViewAll === true) {
+            showViewAllPopup();
+        }
+    }
+    else if (currentJournalData.Characters.length > 0) {
+        showViewAllPopup();
     }
     
     showElement('journalSearch');
     setTabSelected('tabCharacters', true);
 
-    journalData.LastTab = "Character";
     saveToStorage();
 }
 
@@ -151,7 +168,6 @@ function displayAllCharacters() {
         hideElement('btnViewAllAlphabetical');
         hideElement('btnViewAllParty');
         hideElement('btnViewAllDeceased');
-        hideElement('btnViewAllLocation');
     }
     else {
         for (let i = 0; i < characters.length; i++) {
@@ -244,36 +260,6 @@ function reorderCharactersByDead() {
     getReorderedCharacterIndex(currentCharacter);
 }
 
-/** Reorder Characters based on their location. */
-function reorderCharactersByLocation() {
-    let reverse = false;
-    let characters = currentJournalData.Characters;
-
-    let currentCharacter = currentJournalData.Characters[currentCharacterIndex];
-
-    if (document.getElementById('btnViewAllLocation').innerText === getLocalisedString('FILTER_LOCATION_ALPHABETICAL')) {
-        localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL_REVERSE');
-    }
-    else {
-        reverse = true;
-        localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
-    }
-
-    characters.sort((a, b) => a.LastLocation.localeCompare(b.LastLocation));
-
-    if (reverse === true) {
-        characters.reverse();
-    }
-
-    currentJournalData.Characters = characters;
-
-    showViewAllPopup();
-
-    saveToStorage();
-
-    getReorderedCharacterIndex(currentCharacter);
-}
-
 /**
  * Get and set the index of the Character in the reordered list.
  * @param {object} character - The Character.
@@ -298,6 +284,7 @@ function getReorderedCharacterIndex(character) {
 function getHtmlForCharacterSearchResult(character, index) {
     let dead = '';
     let party = '';
+    let extraDetail = '';
 
     if (character.Deceased === true) {
         dead = '<div class="searchTag searchTagRed">' + getLocalisedString('CHARACTER_DECEASED') + '</div> ';
@@ -307,7 +294,14 @@ function getHtmlForCharacterSearchResult(character, index) {
         party = '<div class="searchTag searchTagBlue">' + getLocalisedString('CHARACTER_PARTY') + '</div> ';
     }
 
-    return getHtmlForSearchResult('character', character.Uid, character.Name, party + dead + '<div class="searchExtraDetail">' + character.LastLocation + '</div>', index);
+    if (character.Notes.trim() !== '') {
+        extraDetail = character.Notes.trim().substr(0, 50) + '...';
+    }
+    else {
+        extraDetail = character.LastLocation;
+    }
+
+    return getHtmlForSearchResult('character', character.Uid, character.Name, party + dead + '<div class="searchExtraDetail">' + extraDetail + '</div>', index);
 }
 
 /**

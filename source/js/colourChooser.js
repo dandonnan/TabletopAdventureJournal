@@ -33,9 +33,6 @@ function setColoursOnElements() {
     document.getElementById('btnEditBackgroundColour').style.background = journalData.CustomColour;
     document.getElementById('btnEditHighlightColour').style.background = journalData.CustomColourHighlighted;
 
-    document.getElementById('titleBarBackgroundColour').style.background = journalData.CustomColourHighlighted;
-    document.getElementById('titleBarForegroundColour').style.background = journalData.CustomColour;
-
     let elements = document.getElementsByClassName('selected');
 
     if (elements.length > 0) {
@@ -81,24 +78,29 @@ function removeHoverColour(mouseEvent) {
     }
 }
 
-/** Revert custom colours to the defaults. */
-function revertColoursToDefault() {
+/** Revert settings to the defaults. */
+function revertToDefault() {
     journalData.CustomColour = defaultColour;
     journalData.CustomColourHighlighted = defaultColourHighlight;
+    journalData.AlwaysViewAll = false;
+
+    setValueOnCheckbox('chkViewAllAutomatically', journalData.AlwaysViewAll);
 
     saveToStorage();
 
     setColoursOnElements();
 }
 
-/** Show the edit colour popup. */
-function showEditColourPopup() {
-    showElement('popupEditColour');
+/** Show the settings popup. */
+function showSettingsPopup() {
+    showElement('popupSettings');
+
+    setValueOnCheckbox('chkViewAllAutomatically', journalData.AlwaysViewAll);
 }
 
-/** Hide the edit colour popup. */
-function hideEditColourPopup() {
-    hideElement('popupEditColour');
+/** Hide the settings popup. */
+function hideSettingsPopup() {
+    hideElement('popupSettings');
 }
 
 function showColourChoicesForBackground() {

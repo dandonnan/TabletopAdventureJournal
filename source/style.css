@@ -22,13 +22,13 @@ body{
     margin-bottom: 10px;
 }
 
-.titleBarColourEdit {
+.titleBarSettingsEdit {
     position: absolute;
     top: 5px;
     right: 0px;
 }
 
-.titleBarColourEdit:hover {
+.titleBarSettingsEdit:hover {
     cursor: pointer;
 }
 

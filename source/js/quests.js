@@ -1,18 +1,35 @@
-/** Show the Quest tab. */
-function showQuestTab() {
+/**
+ * Show the Quest tab.
+ * @param {MouseEvent} clickEvent - The event that opened the tab.
+ */
+function showQuestTab(clickEvent) {
     hideAllJournalCards();
     deselectAllTabs();
     clearSearchText();
 
+    journalData.LastTab = "Quest";
+
     if (currentQuestIndex > -1) {
         showElement('journalQuest');
         setQuest();
+
+        if (clickEvent !== undefined) {
+            if ((journalData.AlwaysViewAll === true && clickEvent.shiftKey === false) ||
+                (journalData.AlwaysViewAll === false && clickEvent.shiftKey === true)) {
+                showViewAllPopup();
+            }
+        }
+        else if (journalData.AlwaysViewAll === true) {
+            showViewAllPopup();
+        }
+    }
+    else if (currentJournalData.Quests.length > 0) {
+        showViewAllPopup();
     }
     
     showElement('journalSearch');
     setTabSelected('tabQuest', true);
 
-    journalData.LastTab = "Quest";
     saveToStorage();
 }
 

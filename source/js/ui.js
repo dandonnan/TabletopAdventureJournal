@@ -237,7 +237,6 @@ function hideViewAllPopup() {
     localiseElement('btnViewAllComplete', 'FILTER_COMPLETE');
     localiseElement('btnViewAllParty', 'FILTER_PARTY');
     localiseElement('btnViewAllDeceased', 'FILTER_DEAD');
-    localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
 }
 
 /** Hide the search popup. */
@@ -264,7 +263,6 @@ function showViewAllPopup() {
     hideElement('btnViewAllFailed');
     hideElement('btnViewAllParty');
     hideElement('btnViewAllDeceased');
-    hideElement('btnViewAllLocation');
 
     switch (journalData.LastTab) {
         case 'Quest':
@@ -278,7 +276,6 @@ function showViewAllPopup() {
         case 'Character':
             showElement('btnViewAllParty');
             showElement('btnViewAllDeceased');
-            showElement('btnViewAllLocation');
             displayAllCharacters();
             title = getLocalisedString('TAB_CHARACTERS');
             break;
@@ -392,21 +389,55 @@ function showNewImportPopup() {
     setTextOnInput('txtImportData', '');
 }
 
-/** Show the search query popup. */
-function showSearchQueryPopup() {
-    showElement('popupSearchQueryGuide');
+/** Show the helpful hints popup. */
+function showHelpfulHintsPopup() {
+    showElement('popupHelpfulHintsGuide');
+
+    let html = '<b>' + getLocalisedString('HELPFUL_HINTS_QUERIES_TITLE') + '</b><br>' + getHelpfulHintAsHtml(getLocalisedString('HELPFUL_HINTS_QUERIES_TEXT')) + '<br><br>'
+        + '<b>' + getLocalisedString('HELPFUL_HINTS_SHIFT_TITLE') + '</b><br>' + getHelpfulHintAsHtml(getLocalisedString('HELPFUL_HINTS_SHIFT_TEXT'));
+    
+    setElementContent('helpfulHints', html);
 }
 
-/** Hide the search query popup. */
-function hideSearchQueryPopup() {
-    hideElement('popupSearchQueryGuide');
+/**
+ * Gets a helpful hint as html.
+ * @param {string} hint - The hint.
+ * @returns {string} - The helpful hint as html.
+ */
+function getHelpfulHintAsHtml(hint) {
+    let html = '';
+
+    let lineBreakIndex = hint.indexOf('\n');
+
+    if (lineBreakIndex > -1) {
+
+        while (lineBreakIndex > -1) {
+            html += hint.substr(0, lineBreakIndex) + '<br>';
+
+            hint = hint.substr(lineBreakIndex + 1);
+
+            lineBreakIndex = hint.indexOf('\n');
+        }
+
+        html += hint;
+    }
+    else {
+        html = hint;
+    }
+
+    return html;
+}
+
+/** Hide the helpful hints popup. */
+function hideHelpfulHintsPopup() {
+    hideElement('popupHelpfulHintsGuide');
 }
 
 /** Show the app updated popup. */
 function showUpdatedPopup() {
     showElement('popupUpdate');
 
-    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_2');
+    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_3');
 
     latestVersion = latestVersion.substr(latestVersion.indexOf('\n') + 1);
 
@@ -425,6 +456,7 @@ function hideUpdatePopup() {
 /** Show the version history popup. */
 function showVersionHistoryPopup() {
     let history = [
+        'VERSION_LOG_v0_7_3',
         'VERSION_LOG_v0_7_2',
         'VERSION_LOG_v0_7_1',
         'VERSION_LOG_v0_7',
@@ -546,7 +578,7 @@ function setupEvents() {
     addClickEventToButton('tabCampaigns', showCampaignsTab);
     addClickEventToButton('tabAbout', showAboutTab);
 
-    addClickEventToButton('titleBarColourEdit', showEditColourPopup);
+    addClickEventToButton('titleBarSettingsEdit', showSettingsPopup);
 
     addClickEventToButton('btnAddNew', addButtonClick);
     addClickEventToButton('btnViewAll', showViewAllPopup);
@@ -556,7 +588,7 @@ function setupEvents() {
     addClickEventToButton('btnCampaignsImport', showImportPopup);
     addClickEventToButton('btnCampaignsExport', showExportPopup);
 
-    addClickEventToButton('btnViewSearchQueries', showSearchQueryPopup);
+    addClickEventToButton('btnViewHelpfulHints', showHelpfulHintsPopup);
     addClickEventToButton('btnVersionHistory', showVersionHistoryPopup);
 
     addClickEventToButton('chkQuestComplete', updateQuestFromCheckbox);
@@ -569,15 +601,14 @@ function setupEvents() {
     addClickEventToButton('btnViewAllFailed', reorderQuestsByFailed);
     addClickEventToButton('btnViewAllParty', reorderCharactersByParty);
     addClickEventToButton('btnViewAllDeceased', reorderCharactersByDead);
-    addClickEventToButton('btnViewAllLocation', reorderCharactersByLocation);
 
     addClickEventToButton('btnPopupNewClose', hideNewPopup);
     addClickEventToButton('btnPopupImportClose', hideImportPopup);
     addClickEventToButton('btnPopupExportClose', hideExportPopup);
     addClickEventToButton('btnPopupViewAllClose', hideViewAllPopup);
     addClickEventToButton('btnPopupDeleteClose', hideDeletePopup);
-    addClickEventToButton('btnPopupSearchQueryClose', hideSearchQueryPopup);
-    addClickEventToButton('btnPopupEditColourClose', hideEditColourPopup);
+    addClickEventToButton('btnPopupHelpfulHintsClose', hideHelpfulHintsPopup);
+    addClickEventToButton('btnPopupSettingsClose', hideSettingsPopup);
 
     addClickEventToButton('btnPopupDeleteCancel', hideDeletePopup);
     addClickEventToButton('btnPopupDeleteConfirm', confirmDelete);
@@ -594,7 +625,8 @@ function setupEvents() {
 
     addClickEventToButton('btnEditBackgroundColour', showColourChoicesForBackground);
     addClickEventToButton('btnEditHighlightColour', showColourChoicesForHighlight);
-    addClickEventToButton('btnRevertColour', revertColoursToDefault);
+    addClickEventToButton('chkViewAllAutomatically', toggleViewAllAutomatically);
+    addClickEventToButton('btnRevert', revertToDefault);
     addClickEventToButton('btnCloseColourChooser', hideColourChoicesPopup);
 
     addClickEventToButton('btnCloseUpdated', hideUpdatePopup);
