@@ -273,6 +273,9 @@
     "VERSION_LOG_v0_7_2":{
         "message": "v0.7.2 - Bug Fixes\n - Fixed a bug where it wasn't possible to dismiss the What's New popup\n - Fixed a bug where searching didn't work if there was no data"
     },
+    "VERSION_LOG_v0_7_3": {
+        "message": "v0.7.3 - UX Improvements for View All\n - View All and Search now display the start of the Notes for Characters and Sessions to allow for skimming\n - View All prompt will show automatically if nothing is selected, but there is data\n - View All can be triggered by Shift-clicking (or automatically via the Options menu) into the Quests, Characters or Sessions tab\n - The Edit Colors panel is now an Options menu, with an option to toggle View All automatically"
+    },
     "FILTER_ALPHABETICAL": {
         "message": "A-Z"
     },
@@ -308,5 +311,23 @@
     },
     "FILTER_LOCATION_ALPHABETICAL_REVERSE": {
         "message": "Location Z-A"
+    },
+    "HELPFUL_HINTS":{
+        "message": "Helpful Hints"
+    },
+    "HELPFUL_HINTS_QUERIES_TITLE": {
+        "message": "Search Queries"
+    },
+    "HELPFUL_HINTS_QUERIES_TEXT": {
+        "message": "It is possible to filter searches by adding queries to the end of the search.\n\n&complete&nbsp;&nbsp; - Filter by completed quests\n&incomplete&nbsp;&nbsp; - Filter by incomplete quests\n&failed&nbsp;&nbsp; - Filter by failed quests\n&inprogress&nbsp;&nbsp; - Filter by in progress quests\n\n&party&nbsp;&nbsp; - Filter by characters in the party\n&nonparty&nbsp;&nbsp; - Filter by characters not in the party\n&dead&nbsp;&nbsp; - Filter by characters that are dead\n&alive&nbsp;&nbsp; - Filter by characters that are alive"
+    },
+    "HELPFUL_HINTS_SHIFT_TITLE": {
+        "message": "Shift Click"
+    },
+    "HELPFUL_HINTS_SHIFT_TEXT": {
+        "message": "By holding Shift when clicking on the Quests, Character or Sessions tab, you can force the View All popup to appear.\n\nIf Automatically View All is set in Options, holding Shift will hide it instead."
+    },
+    "SETTINGS": {
+        "message": "Settings"
     }
 }

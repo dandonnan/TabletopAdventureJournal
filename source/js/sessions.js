@@ -1,18 +1,35 @@
-/** Show the Session tab. */
-function showSessionTab() {
+/**
+ * Show the Session tab.
+ * @param {MouseEvent} clickEvent - The event that opened the tab.
+ */
+function showSessionTab(clickEvent) {
     hideAllJournalCards();
     deselectAllTabs();
     clearSearchText();
 
+    journalData.LastTab = "Session";
+
     if (currentSessionIndex > -1) {
         showElement('journalSession');
         setSession();
+
+        if (clickEvent !== undefined) {
+            if ((journalData.AlwaysViewAll === true && clickEvent.shiftKey === false) ||
+                (journalData.AlwaysViewAll === false && clickEvent.shiftKey === true)) {
+                showViewAllPopup();
+            }
+        }
+        else if (journalData.AlwaysViewAll === true) {
+            showViewAllPopup();
+        }
+    }
+    else if (currentJournalData.Sessions.length > 0) {
+        showViewAllPopup();
     }
     
     showElement('journalSearch');
     setTabSelected('tabSessions', true);
 
-    journalData.LastTab = "Session";
     saveToStorage();
 }
 
@@ -167,7 +184,15 @@ function getReorderedSessionIndex(session) {
  * @returns {object} - The HTML for a Session search result.
  */
 function getHtmlForSessionSearchResult(session, index) {
-    return getHtmlForSearchResult('session', session.Uid, session.Name, '', index);
+    let extraDetail = '';
+
+    if (session.Notes.trim() !== '') {
+        let trimmedNotes = session.Notes.trim().substr(0, 50);
+
+        extraDetail = '<div class="searchExtraDetail">' + trimmedNotes + '...</div>';
+    }
+
+    return getHtmlForSearchResult('session', session.Uid, session.Name, extraDetail, index);
 }
 
 /**

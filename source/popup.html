@@ -20,9 +20,8 @@
 
             <div id="journal" class="hidden">
                 <input id="txtHeader" class="inputBox titleHeader campaignName" type="text" placeholder="Campaign Name"></input>
-                <div id="titleBarColourEdit" class="titleBarColourEdit">
-                    <div id="titleBarBackgroundColour" class="colourSelector colourSelectorPreview titleColourEditBackground"></div>
-                    <div id="titleBarForegroundColour" class="colourSelector colourSelectorPreview titleColourEditForeground"></div>
+                <div id="titleBarSettingsEdit" class="titleBarSettingsEdit">
+                    <img style="padding: 4px" src="images/options.png" />
                 </div>
                 <br>
 
@@ -104,7 +103,7 @@
 
                 <div id="journalAbout" class="card hidden">
                     <br>
-                    <button id="btnViewSearchQueries" class="baseButton campaignButton" type="button">About Search Queries</button>
+                    <button id="btnViewHelpfulHints" class="baseButton campaignButton" type="button">Helpful Hints</button>
                     <button id="btnVersionHistory" class="baseButton campaignButton" type="button">Version History</button><br><br>
                     Tabletop Adventure Journal &copy; 2021 Dan Donnan.<br><br>
                     Tabletop Adventure Journal was developed to help organise D&D notes in an easier to
@@ -186,7 +185,6 @@
                     <button id="btnViewAllFailed" class="baseButton" type="button">Failed</button>
                     <button id="btnViewAllParty" class="baseButton" type="button">Party</button>
                     <button id="btnViewAllDeceased" class="baseButton" type="button">Deceased</button>
-                    <button id="btnViewAllLocation" class="baseButton" type="button">Location A-Z</button>
                     <br><br>
                     <div id="viewAllContainer" class="searchContainer"></div>
                 </div>
@@ -203,12 +201,12 @@
                 </div>
             </div>
 
-            <div id="popupSearchQueryGuide" class="popupBackground hidden">
+            <div id="popupHelpfulHintsGuide" class="popupBackground hidden">
                 <div class="popupContent">
-                    <div class="popupTitle">Search Queries</div>
-                    <button id="btnPopupSearchQueryClose" class="closeButton" type="button">X</button>
+                    <div id="popupHelpfulHintsTitle" class="popupTitle">Helpful Hints</div>
+                    <button id="btnPopupHelpfulHintsClose" class="closeButton" type="button">X</button>
                     <br>
-                    <div class="popupWithText">
+                    <div id="helpfulHints" class="popupWithText">
                         It is possible to filter searches by adding queries to the end of the search.<br><br>
 
                         <b>Quests</b><br>
@@ -226,14 +224,15 @@
                 </div>
             </div>
 
-            <div id="popupEditColour" class="popupBackground hidden">
+            <div id="popupSettings" class="popupBackground hidden">
                 <div class="popupContent">
-                    <div id="popupEditColourTitle" class="popupTitle">Edit Colours</div>
-                    <button id="btnPopupEditColourClose" class="closeButton" type="button">X</button>
+                    <div id="popupSettingsTitle" class="popupTitle">Settings</div>
+                    <button id="btnPopupSettingsClose" class="closeButton" type="button">X</button>
                     <br>
                     <div id="colourSelectorBackground" class="colourEditTitle">Background</div><button id="btnEditBackgroundColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
                     <div id="colourSelectorHighlight" class="colourEditTitle">Highlight</div><button id="btnEditHighlightColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
-                    <button id="btnRevertColour" class="baseButton campaignButton" type="button">Revert to Default</button>
+                    <label id="settingsViewAllAutomatically">Automatically View All</label><input id="chkViewAllAutomatically" type="checkbox" /><br><br>
+                    <button id="btnRevert" class="baseButton campaignButton" type="button">Revert to Default</button>
                 </div>
 
                 <div id="popupColourChooser" class="popupBackground hidden">

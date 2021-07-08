@@ -39,7 +39,6 @@ function localiseStaticHtml() {
     localiseElement('btnViewAllFailed', 'FILTER_FAILED');
     localiseElement('btnViewAllParty', 'FILTER_PARTY');
     localiseElement('btnViewAllDeceased', 'FILTER_DEAD');
-    localiseElement('btnViewAllLocation', 'FILTER_LOCATION_ALPHABETICAL');
 
     localiseInputPlaceholder('txtSummaryNotes', 'TAB_SUMMARY');
 
@@ -88,16 +87,20 @@ function localiseStaticHtml() {
     localiseElement('btnPopupDeleteCancel', 'BUTTON_CANCEL');
     localiseElement('btnPopupDeleteConfirm', 'BUTTON_DELETE');
 
-    localiseElement('popupEditColourTitle', 'BUTTON_EDIT_COLOURS');
+    localiseElement('popupHelpfulHintsTitle', 'HELPFUL_HINTS');
+
+    localiseElement('popupSettingsTitle', 'SETTINGS');
     localiseElement('colourSelectorBackground', 'COLOUR_BACKGROUND');
     localiseElement('colourSelectorHighlight', 'COLOUR_HIGHLIGHT');
-    localiseElement('btnRevertColour', 'COLOUR_REVERT');
+    localiseElement('settingsViewAllAutomatically', 'VIEW_ALL_AUTOMATICALLY');
+    localiseElement('btnRevert', 'COLOUR_REVERT');
 
     localiseElement('colourChooserPreview', 'COLOUR_PREVIEW');
     localiseElement('btnCloseColourChooser', 'COLOUR_OK');
     localiseInputPlaceholder('txtColourCode', 'COLOUR_ENTER_CODE');
 
     localiseElement('btnVersionHistory', 'VERSION_LOG');
+    localiseElement('btnViewHelpfulHints', 'HELPFUL_HINTS');
 
     localiseElement('popupVersionHistoryTitle', 'VERSION_LOG');
 

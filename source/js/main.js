@@ -1,6 +1,6 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.721;
+const currentVersion = 0.73;
 
 const defaultColour = '#c53131';
 const defaultColourHighlight = '#731d1d';
@@ -164,6 +164,10 @@ function loadFromStorage() {
             savedData = upgradeDataFromSingleToSplitFiles(savedData);
         }
         else if (savedData.Version < currentVersion) {
+            if (savedData.Version < 0.73) {
+                savedData.AlwaysViewAll = false;
+            }
+
             if (savedData.Version < 0.71) {
                 savedData.LastCampaign = -1;
                 upgradeQuestsWithInProgressAndFailedStates(savedData);
@@ -319,8 +323,9 @@ function getNewJournalData() {
         LastCampaign: -1,
         LastTab: "Summary",
         Version: currentVersion,
-        "CustomColour": defaultColour,
-        "CustomColourHighlighted": defaultColourHighlight,
+        CustomColour: defaultColour,
+        CustomColourHighlighted: defaultColourHighlight,
+        AlwaysViewAll: false,
         Campaigns: []
     }
 }
@@ -599,6 +604,13 @@ function orderViewAllAlphabetically() {
     }
 
     showViewAllPopup();
+
+    saveToStorage();
+}
+
+/** Toggles the view all automatically setting. */
+function toggleViewAllAutomatically() {
+    journalData.AlwaysViewAll = getValueFromCheckbox('chkViewAllAutomatically');
 
     saveToStorage();
 }
