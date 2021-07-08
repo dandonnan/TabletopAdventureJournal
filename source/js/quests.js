@@ -50,8 +50,12 @@ function showQuestTab(clickEvent) {
 
     currentQuestIndex = currentJournalData.Quests.length - 1;
     currentJournalData.LastQuest = currentQuestIndex;
+    
+    let mouseEvent = {
+        shiftKey: null,
+    };
 
-    showQuestTab();
+    showQuestTab(mouseEvent);
     showElement('journalQuest');
     saveToStorage();
 
@@ -367,8 +371,12 @@ function loadQuest(clickEvent) {
     currentQuestIndex = index;
     currentJournalData.LastQuest = uid;
 
+    let mouseEvent = {
+        shiftKey: null,
+    };
+
     hideElement('popupViewAll');
-    showQuestTab();
+    showQuestTab(mouseEvent);
 }
 
 /**

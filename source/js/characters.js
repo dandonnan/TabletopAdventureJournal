@@ -50,8 +50,13 @@ function showCharacterTab(clickEvent) {
 
     currentCharacterIndex = currentJournalData.Characters.length - 1;
     currentJournalData.LastCharacter = currentCharacterIndex;
+     
 
-    showCharacterTab();
+    let mouseEvent = {
+        shiftKey: null,
+    };
+
+    showCharacterTab(mouseEvent);
     showElement('journalCharacter');
     saveToStorage();
 
@@ -337,8 +342,12 @@ function loadCharacter(clickEvent) {
     currentCharacterIndex = index;
     currentJournalData.LastCharacter = uid;
 
+    let mouseEvent = {
+        shiftKey: null,
+    };
+
     hideElement('popupViewAll');
-    showCharacterTab();
+    showCharacterTab(mouseEvent);
 }
 
 /**

@@ -47,7 +47,11 @@ function showSessionTab(clickEvent) {
     currentSessionIndex = currentJournalData.Sessions.length - 1;
     currentJournalData.LastSession = currentSessionIndex;
 
-    showSessionTab();
+    let mouseEvent = {
+        shiftKey: null,
+    };
+     
+    showSessionTab(mouseEvent);
     showElement('journalSession');
     saveToStorage();
 
@@ -228,8 +232,12 @@ function loadSession(clickEvent) {
     currentSessionIndex = index;
     currentJournalData.LastSession = uid;
 
+    let mouseEvent = {
+        shiftKey: null,
+    };
+
     hideElement('popupViewAll');
-    showSessionTab();
+    showSessionTab(mouseEvent);
 }
 
 /**
