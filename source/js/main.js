@@ -1,6 +1,6 @@
 
 const storageName = 'journal.tbt';
-const currentVersion = 0.731;
+const currentVersion = 0.74;
 
 const defaultColour = '#c53131';
 const defaultColourHighlight = '#731d1d';
@@ -29,6 +29,8 @@ function appLoad() {
     }
 
     setColoursOnElements();
+
+    setupBrowserSpecificControls();
 
     setupEvents();
 }

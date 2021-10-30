@@ -437,7 +437,7 @@ function hideHelpfulHintsPopup() {
 function showUpdatedPopup() {
     showElement('popupUpdate');
 
-    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_3');
+    let latestVersion = getLocalisedString('VERSION_LOG_v0_7_4');
 
     latestVersion = latestVersion.substr(latestVersion.indexOf('\n') + 1);
 
@@ -456,6 +456,7 @@ function hideUpdatePopup() {
 /** Show the version history popup. */
 function showVersionHistoryPopup() {
     let history = [
+        'VERSION_LOG_v0_7_4',
         'VERSION_LOG_v0_7_3',
         'VERSION_LOG_v0_7_2',
         'VERSION_LOG_v0_7_1',
@@ -653,7 +654,21 @@ function setupEvents() {
 
     addOnBlurEventToInput('txtSearch', hideSearchPopupOnDelay);
 
+    addOnBlurEventToInput('colourBackgroundEdit', onColourChanged);
+    addOnBlurEventToInput('colourHighlightEdit', onColourChanged);
+
     addOnKeyUpEventToInput('txtSearch', search);
 
     addOnKeyUpEventToInput('txtColourCode', changeColourFromInput);
+}
+
+/** Sets up browser specific controls. */
+function setupBrowserSpecificControls() {
+    // Firefox has Install Trigger
+    if (typeof InstallTrigger !== 'undefined') {
+        hideElement('colourSelectorChrome');
+    }
+    else {
+        hideElement('colourSelectorFirefox');
+    }
 }

@@ -1,6 +1,9 @@
 const backgroundColour = 'backgroundColour';
 const highlightColour = 'highlightColour';
 
+const backgroundEdit = 'colourBackgroundEdit';
+const highlightEdit = 'colourHighlightEdit';
+
 let currentChoice = backgroundColour;
 
 const customisableColours = [
@@ -32,6 +35,12 @@ function setColoursOnElements() {
 
     document.getElementById('btnEditBackgroundColour').style.background = journalData.CustomColour;
     document.getElementById('btnEditHighlightColour').style.background = journalData.CustomColourHighlighted;
+
+    document.getElementById('colourBackgroundEdit').style.background = journalData.CustomColour;
+    document.getElementById('colourHighlightEdit').style.background = journalData.CustomColourHighlighted;
+
+    document.getElementById('colourBackgroundEdit').value = journalData.CustomColour;
+    document.getElementById('colourHighlightEdit').value = journalData.CustomColourHighlighted;
 
     let elements = document.getElementsByClassName('selected');
 
@@ -190,10 +199,33 @@ function onColourClicked(clickEvent) {
 }
 
 /**
+ * Event when a colour option is changed.
+ * @param {any} changeEvent - The change event.
+ */
+function onColourChanged(changeEvent) {
+    let targetName = changeEvent.target.id;
+
+    if (targetName.indexOf(backgroundEdit) > -1) {
+
+        journalData.CustomColour = changeEvent.target.value;
+        saveToStorage();
+
+        setColoursOnElements();
+    }
+    else if (targetName.indexOf(highlightEdit) > -1) {
+
+        journalData.CustomColourHighlighted = changeEvent.target.value;
+        saveToStorage();
+
+        setColoursOnElements();
+    }
+}
+
+/**
  * Update the preview colour.
  * @param {object} mouseEvent - The mouse event.
  */
-function updatePreviewColour(mouseEvent) {
+ function updatePreviewColour(mouseEvent) {
     let targetName = mouseEvent.target.id;
 
     let previewElement = document.getElementById('colourSelectorPreview');

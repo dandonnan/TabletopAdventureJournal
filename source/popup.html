@@ -229,8 +229,15 @@
                     <div id="popupSettingsTitle" class="popupTitle">Settings</div>
                     <button id="btnPopupSettingsClose" class="closeButton" type="button">X</button>
                     <br>
-                    <div id="colourSelectorBackground" class="colourEditTitle">Background</div><button id="btnEditBackgroundColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
-                    <div id="colourSelectorHighlight" class="colourEditTitle">Highlight</div><button id="btnEditHighlightColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
+                    <div id="colourSelectorFirefox">
+                        <div id="colourSelectorBackground" class="colourEditTitle">Background</div><button id="btnEditBackgroundColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
+                        <div id="colourSelectorHighlight" class="colourEditTitle">Highlight</div><button id="btnEditHighlightColour" type="button" class="colourSelector colourSelectorPreview"></button><br><br>
+                    </div>
+
+                    <div id="colourSelectorChrome">
+                        <div id="colourSelectorBackground" class="colourEditTitle">Background</div><input id="colourBackgroundEdit" type="color" class="colourSelector colourSelectorPreview" /><br><br>
+                        <div id="colourSelectorHighlight" class="colourEditTitle">Highlight</div><input id="colourHighlightEdit" type="color" class="colourSelector colourSelectorPreview"><br><br>
+                    </div>
                     <label id="settingsViewAllAutomatically">Automatically View All</label><input id="chkViewAllAutomatically" type="checkbox" /><br><br>
                     <button id="btnRevert" class="baseButton campaignButton" type="button">Revert to Default</button>
                 </div>
