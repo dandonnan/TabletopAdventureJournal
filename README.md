@@ -3,15 +3,14 @@
 Tabletop Adventure Journal is a browser extension that allows users to take notes of their Tabletop adventure games. Notes are organised into Quests, Characters and Sessions.
 
 ## Install Latest Version
-The extension is available to install from the official extension stores.
-
-### Chrome
-This should also work on any other Chromium based browsers that have access to the Chrome store (like Vivaldi).
-
-https://chrome.google.com/webstore/detail/tabletop-adventure-journa/iegognijdnbephgeahejnppokoidmbcb?hl=en-GB&authuser=0
+The extension is available to install from the official Firefox extension store.
 
 ### Firefox
 https://addons.mozilla.org/en-US/firefox/addon/tabletop-adventure-journal/
+
+### Chrome
+The extension has been removed from the Chrome extension store because Google keep changing their terms and expect developers to spend time
+going through old projects and making them comply to the new terms.
 
 ## Install Development Version
 Clone the repository, or download this project as a zip. Then, from the browser's extensions page, load it as unpacked.
@@ -20,6 +19,8 @@ Clone the repository, or download this project as a zip. Then, from the browser'
 * Enable Developer Mode (top right)
 * Click Load Unpacked (top left)
 * Navigate to the folder that contains the manifest.json file and select it
+
+Additional changes may have to be made to adhere to changes that Google have made to their terms.
 
 ### Firefox
 * Click the Cog and then Debug Add-ons
